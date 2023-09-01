@@ -14,7 +14,7 @@ const Progress = () => {
   }, []);
 
   return (
-    <div className="px-[5em] pt-[1em]">
+    <div className="px-[10px] sm:px-[1em] md:px-[2em] lg:px-[4em] xl:px-[5em] pt-[1em]">
       {/* wrapper */}
       <div>
         <Link to="/home">
@@ -30,14 +30,17 @@ const Progress = () => {
             </div>
           </div>
           <div>
-            <p className="text-center mt-[1em]">
-              Thank You For Ordering From Us
+            <p className="text-center mt-[1em]">We Have See Your Order</p>
+            <p className="text-center">
+              Keep Pressing the icon below to check progress
             </p>
           </div>
         </div>
         {/*, received, preparing, shipping, rejected, delivered  */}
-        <div className="mt-[2em] flex justify-evenly items-center">
-          <div>Current Stage : sent</div>
+        <div className="mt-[2em] flex justify-evenly gap-[20px] items-center">
+          <div>
+            Current Stage : <span className="text-red-600">received</span>
+          </div>
           <FiRefreshCcw className="text-2xl" />
         </div>
       </div>

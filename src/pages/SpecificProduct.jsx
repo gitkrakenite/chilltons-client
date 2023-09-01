@@ -119,7 +119,7 @@ const SpecificProduct = () => {
               >
                 {/* img side */}
                 <div className="flex-[0.5]">
-                  <img src={item.image} alt="" className="max-h-[500px]" />
+                  <img src={item.image} alt="" className=" md:max-h-[500px]" />
                 </div>
                 {/* text side */}
                 <div className="flex-[0.5]">

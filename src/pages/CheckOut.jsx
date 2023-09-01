@@ -7,21 +7,21 @@ const CheckOut = () => {
 
   const handleCreateOrder = async (e) => {
     e.preventDefault();
-    // user details below, product details from cart and progress default = sent
+    // username from saved user, phone number below, product details from cart and progress default = sent
     navigate("/progress", { state: { data: 6 } });
   };
 
   return (
     <div>
       {/* wrapper */}
-      <div className="px-[5em] pt-[1em]">
+      <div className="px-[10px] sm:px-[1em] md:px-[2em] lg:px-[4em] xl:px-[5em] pt-[1em]">
         <div className="my-[20px]">
           <Link to="/cart">
             <AiOutlineArrowLeft className="text-2xl" />
           </Link>
         </div>
 
-        <h2 className="text-lg font-bold">Shipping Details</h2>
+        <h2 className="text-lg font-bold mb-[1em]">Shipping Details</h2>
 
         <div className="">
           <h2 className="text-center font-bold mb-[10px]">
@@ -34,7 +34,7 @@ const CheckOut = () => {
           </ul>
         </div>
 
-        <form className=" p-4 pt-[2em] w-[50%] m-auto">
+        <form className=" pt-[2em] w-[98%] sm:w-[80%]  md:w-[60%] xl:w-[50%]  2xl:w-[40%] m-auto">
           <div className="flex flex-col gap-[15px]">
             {/* user details */}
             <input

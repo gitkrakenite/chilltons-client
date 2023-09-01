@@ -98,11 +98,11 @@ const Comment = ({ item }) => {
           <>
             {[...item.comments].reverse().map((item, index) => (
               <div className="" key={index}>
-                <div className=" block md:flex items-center gap-[20px] mb-[16px] pb-[10px]">
+                <div className=" block md:flex items-start md:items-center gap-[20px] mb-[16px] pb-[10px]">
                   <p className="">
                     <span className="text-emerald-700">{item.sender}</span>
                   </p>
-                  <div className="flex flex-col md:flex-row justify-between  gap-[10px] md:gap-[40px] items-center">
+                  <div className="flex flex-col md:flex-row justify-between  gap-[10px] md:gap-[40px] md:items-center">
                     <p className="text-zinc-700 text-md">{item.comment}</p>
                     <p className="text-zinc-400 text-sm">
                       {/* {moment(item.createdAt).fromNow()} */} 2 mins ago

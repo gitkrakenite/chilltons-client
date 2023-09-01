@@ -17,7 +17,7 @@ const Splash = () => {
       {/* content */}
       <div>
         {/* topbar */}
-        <div className="absolute w-full h-full top-0  text-white px-[5em]  ">
+        <div className="absolute w-full h-full top-0  text-white px-[10px] sm:px-[1em] md:px-[3em] lg:px-[4em] xl:px-[5em]  ">
           <div className="flex justify-between items-center">
             {/* logo */}
             <div>
@@ -25,20 +25,22 @@ const Splash = () => {
               <img src={logo} alt="" className="w-20 h-20" />
             </div>
             <div className="z-10">
-              <p
-                className="text-md font-bold bg-red-600 px-4 py-2 border-none outline-none rounded-md"
-                style={{ letterSpacing: "1px" }}
-              >
-                LOGIN
-              </p>
+              <Link to="/login">
+                <p
+                  className="text-md font-bold bg-red-600 px-4 py-2 border-none outline-none rounded-md"
+                  style={{ letterSpacing: "1px" }}
+                >
+                  LOGIN
+                </p>
+              </Link>
             </div>
           </div>
         </div>
         <div className="absolute w-full h-full top-0 flex flex-col justify-center items-center text-white">
-          <p className="text-5xl mb-5 font-bold">
+          <p className=" text-xl sm:text-3xl md:text-4xl lg:text-5xl mb-5 font-bold">
             Welcome to Chilltons Restaurant
           </p>
-          <p className="text-3xl mb-5">
+          <p className=" text-md sm:text-3xl mb-5">
             Delicious Food, Quality Food, Fast Delivery
           </p>
           <div>
