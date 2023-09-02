@@ -11,45 +11,9 @@ import Comment from "../components/Comment";
 
 import axios from "../axios";
 import { useSelector } from "react-redux";
+import DComment from "../components/DComment";
 
-const SpecificProduct = () => {
-  const DummyProduct = [
-    {
-      id: 11,
-      title: "Chicken Burger",
-      price: "120",
-      category: "snack",
-      description:
-        "Bread on either side with a slab of chicken, tomato and ketchup inside",
-      image:
-        "https://images.pexels.com/photos/2983099/pexels-photo-2983099.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-  ];
-
+const SpecificDrink = () => {
   const { user } = useSelector((state) => state.auth);
 
   // fetch the food
@@ -62,7 +26,7 @@ const SpecificProduct = () => {
       setLoading(true);
 
       let checkParam = id;
-      const response = await axios.get("/food/specific/" + checkParam);
+      const response = await axios.get("/drinks/specific/" + checkParam);
       if (response) {
         setLoading(false);
         setSingleFood([response.data]);
@@ -149,7 +113,7 @@ const SpecificProduct = () => {
       let id = product._id;
       let likeData = { username };
 
-      await axios.post("/food/like/" + id, likeData);
+      await axios.post("/drinks/like/" + id, likeData);
       window.location.reload();
     } catch (error) {
       toast.error("Failed To Like");
@@ -275,7 +239,7 @@ const SpecificProduct = () => {
                   </div>
                   {/* comments` */}
                   <div className="mt-[1em]">
-                    <Comment item={item} />
+                    <DComment item={item} />
                   </div>
                 </div>
               </div>
@@ -289,4 +253,4 @@ const SpecificProduct = () => {
   );
 };
 
-export default SpecificProduct;
+export default SpecificDrink;

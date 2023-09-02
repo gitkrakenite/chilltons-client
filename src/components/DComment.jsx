@@ -5,7 +5,7 @@ import axios from "../axios";
 import moment from "moment";
 import Spinner from "./Spinner";
 
-const Comment = ({ item }) => {
+const DComment = ({ item }) => {
   const { user } = useSelector((state) => state.auth);
 
   // comment
@@ -25,7 +25,7 @@ const Comment = ({ item }) => {
       let id = product._id;
       let commentData = { username, comment };
 
-      await axios.post("/food/comment/" + id, commentData);
+      await axios.post("/drinks/comment/" + id, commentData);
       setLoadingComment(false);
       setComment("");
       window.location.reload();
@@ -126,4 +126,4 @@ const Comment = ({ item }) => {
   );
 };
 
-export default Comment;
+export default DComment;

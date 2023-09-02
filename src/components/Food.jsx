@@ -1,15 +1,11 @@
-import React from "react";
 import {
-  AiOutlineArrowRight,
   AiOutlineArrowUp,
   AiOutlineComment,
-  AiOutlineDislike,
   AiOutlineLike,
-  AiOutlinePhone,
   AiOutlineSearch,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { CiLocationOn } from "react-icons/ci";
+
 import { Link } from "react-router-dom";
 import Masonry from "react-masonry-css";
 import { useEffect, useState } from "react";
@@ -17,379 +13,31 @@ import "./masonry.css";
 import { BiPhoneCall } from "react-icons/bi";
 import logo from "../assets/chlogo.png";
 import { toast } from "react-toastify";
+import axios from "../axios";
+import Spinner from "./Spinner";
 
 const Food = () => {
-  const DummyFood = [
-    {
-      id: 1,
-      title: "Fries",
-      price: "120",
-      category: "snack",
-      description: "Fries are roasted potatoes, with a flavor on it",
-      image:
-        "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 2,
-      title: "Chicken Burger",
-      price: "120",
-      category: "snack",
-      description:
-        "Bread on either side with a slab of chicken, tomato and ketchup inside",
-      image:
-        "https://images.pexels.com/photos/2586065/pexels-photo-2586065.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 3,
-      title: "Rice chicken",
-      price: "120",
-      category: "lunch",
-      description: "Rice and chicken",
-      image:
-        "https://images.pexels.com/photos/6646164/pexels-photo-6646164.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 4,
-      title: "Rice and Beed",
-      price: "120",
-      category: "meal",
-      description: "Rice and beef",
-      image:
-        "https://images.pexels.com/photos/6066056/pexels-photo-6066056.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 5,
-      title: "Sphaggeti and Beef",
-      price: "120",
-      category: "meal",
-      description: "Sphagetti and beef",
-      image:
-        "https://images.pexels.com/photos/17592738/pexels-photo-17592738/free-photo-of-food-restaurant-drinks-dinner.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 6,
-      title: "Pizza",
-      price: "120",
-      category: "snack",
-      description: "Pizza, bread and chicken",
-      image:
-        "https://images.pexels.com/photos/13814644/pexels-photo-13814644.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 7,
-      title: "Chicken Burger",
-      price: "120",
-      category: "snack",
-      description:
-        "Bread on either side with a slab of chicken, tomato and ketchup inside",
-      image:
-        "https://images.pexels.com/photos/8969237/pexels-photo-8969237.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 8,
-      title: "Chicken Burger",
-      price: "120",
-      category: "snack",
-      description:
-        "Bread on either side with a slab of chicken, tomato and ketchup inside",
-      image:
-        "https://images.pexels.com/photos/15564188/pexels-photo-15564188/free-photo-of-pancakes-with-berries-and-marple-syrup.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 9,
-      title: "Chicken Burger",
-      price: "120",
-      category: "snack",
-      description:
-        "Bread on either side with a slab of chicken, tomato and ketchup inside",
-      image:
-        "https://images.pexels.com/photos/17216084/pexels-photo-17216084/free-photo-of-croissants-and-fruit-behind.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 10,
-      title: "Chicken Burger",
-      price: "120",
-      category: "snack",
-      description:
-        "Bread on either side with a slab of chicken, tomato and ketchup inside",
-      image:
-        "https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 11,
-      title: "Chicken Burger",
-      price: "120",
-      category: "snack",
-      description:
-        "Bread on either side with a slab of chicken, tomato and ketchup inside",
-      image:
-        "https://images.pexels.com/photos/2983099/pexels-photo-2983099.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-  ];
+  const [allFood, setAllFood] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleFetchFood = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("/food/all");
+      if (response) {
+        setLoading(false);
+        setAllFood(response.data);
+        console.log(response.data);
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("Error Fetching Food");
+    }
+  };
+
+  useEffect(() => {
+    handleFetchFood();
+  }, []);
 
   const breakpointColumnsObj = {
     default: 4,
@@ -405,8 +53,8 @@ const Food = () => {
   const recordsPerPage = 9;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = DummyFood?.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(DummyFood?.length / recordsPerPage);
+  const records = allFood?.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(allFood?.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
   const [start, setStart] = useState(1);
@@ -451,7 +99,7 @@ const Food = () => {
 
     setsearchTimeout(
       setTimeout(() => {
-        const searchResults = DummyFood.filter(
+        const searchResults = allFood?.filter(
           (item) =>
             item.title.toLowerCase().includes(searchText.toLowerCase()) ||
             item.category.toLowerCase().includes(searchText.toLowerCase())
@@ -631,8 +279,8 @@ const Food = () => {
                     columnClassName="my-masonry-grid_column"
                   >
                     {searchedResults?.map((item) => (
-                      <Link to={`/product/${item.id}`}>
-                        <div key={item.id} className="flex-shrink-0 mb-3">
+                      <Link to={`/product/${item._id}`}>
+                        <div key={item._id} className="flex-shrink-0 mb-3">
                           <div className="relative rounded-lg group ">
                             <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
                               <div
@@ -694,57 +342,71 @@ const Food = () => {
             </>
           ) : (
             <>
-              <Masonry
-                breakpointCols={breakpointColumnsObj}
-                className="my-masonry-grid "
-                columnClassName="my-masonry-grid_column"
-              >
-                {records?.map((item) => (
-                  <Link to={`/product/${item.id}`}>
-                    <div key={item.id} className="flex-shrink-0 mb-3">
-                      <div className="relative rounded-lg group ">
-                        <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
-                          <div
-                            className="bg-gradient-to-t
+              {loading ? (
+                <div className="mt-[8em]">
+                  <Spinner message="Fetching ..." />
+                </div>
+              ) : (
+                <>
+                  <Masonry
+                    breakpointCols={breakpointColumnsObj}
+                    className="my-masonry-grid "
+                    columnClassName="my-masonry-grid_column"
+                  >
+                    {records?.map((item) => (
+                      <Link to={`/product/${item._id}`}>
+                        <div key={item._id} className="flex-shrink-0 mb-3 mt-6">
+                          <div className="relative rounded-lg group ">
+                            <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
+                              <div
+                                className="bg-gradient-to-t
                                   from-transparent to-black opacity-75 w-full h-full rounded-md"
-                          >
-                            {/* top stats */}
-                            <div>
-                              <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
+                              >
+                                {/* top stats */}
                                 <div>
-                                  <p className="text-white">#{item.category}</p>
+                                  <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
+                                    <div>
+                                      <p className="text-white">
+                                        #{item.category}
+                                      </p>
+                                    </div>
+                                    <div className="flex gap-[20px]">
+                                      <p className="text-white text-md flex items-center gap-[5px]">
+                                        <AiOutlineLike className="text-lg" />
+                                        <span>{item.likes?.length}</span>
+                                      </p>
+                                      <p className="text-white text-md flex items-center gap-[5px]">
+                                        <AiOutlineComment className="text-lg" />
+                                        <span>{item.comments?.length}</span>
+                                      </p>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="flex gap-[20px]">
-                                  <p className="text-white text-md flex items-center gap-[5px]">
-                                    <AiOutlineLike className="text-lg" />
-                                    <span>{item.likes?.length}</span>
-                                  </p>
-                                  <p className="text-white text-md flex items-center gap-[5px]">
-                                    <AiOutlineComment className="text-lg" />
-                                    <span>{item.comments?.length}</span>
-                                  </p>
-                                </div>
+
+                                {/*  */}
                               </div>
                             </div>
 
-                            {/*  */}
+                            <img
+                              src={item.image}
+                              alt=""
+                              className=" rounded-lg"
+                            />
+
+                            <div className="flex justify-between items-center text-zinc-700 mt-[5px]">
+                              <p className="text-zinc-900 font-bold">
+                                {item.title}
+                              </p>
+                              <p className="text-zinc-800">Ksh.{item.price}</p>
+                            </div>
                           </div>
+                          {/*  */}
                         </div>
-
-                        <img src={item.image} alt="" className=" rounded-lg" />
-
-                        <div className="flex justify-between items-center text-zinc-700 mt-[5px]">
-                          <p className="text-zinc-900 font-bold">
-                            {item.title}
-                          </p>
-                          <p className="text-zinc-800">Ksh.{item.price}</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                    </div>
-                  </Link>
-                ))}
-              </Masonry>
+                      </Link>
+                    ))}
+                  </Masonry>
+                </>
+              )}
             </>
           )}
         </div>

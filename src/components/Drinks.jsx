@@ -17,176 +17,31 @@ import "./masonry.css";
 import { BiPhoneCall } from "react-icons/bi";
 import logo from "../assets/chlogo.png";
 import { toast } from "react-toastify";
+import axios from "../axios";
+import Spinner from "./Spinner";
 
 const Drinks = () => {
-  const DummyFood = [
-    {
-      id: 1,
-      title: "Mirinda",
-      price: "120",
-      category: "snack",
-      description: "Fries are roasted potatoes, with a flavor on it",
-      image:
-        "https://images.pexels.com/photos/50593/coca-cola-cold-drink-soft-drink-coke-50593.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 2,
-      title: "Pepsi",
-      price: "120",
-      category: "snack",
-      description:
-        "Bread on either side with a slab of chicken, tomato and ketchup inside",
-      image:
-        "https://images.pexels.com/photos/1292294/pexels-photo-1292294.jpeg?auto=compress&cs=tinysrgb&w=16000",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 3,
-      title: "Coffee",
-      price: "120",
-      category: "drink",
-      description: "Rice and chicken",
-      image:
-        "https://images.pexels.com/photos/2396220/pexels-photo-2396220.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 4,
-      title: "Chai",
-      price: "120",
-      category: "meal",
-      description: "Rice and beef",
-      image:
-        "https://images.pexels.com/photos/11833310/pexels-photo-11833310.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-    {
-      id: 5,
-      title: "Coffee",
-      price: "120",
-      category: "meal",
-      description: "Sphagetti and beef",
-      image:
-        "https://images.pexels.com/photos/11833310/pexels-photo-11833310.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-  ];
+  const [allDrinks, setAllDrinks] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleFetchFood = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("/drinks/all");
+      if (response) {
+        setLoading(false);
+        setAllDrinks(response.data);
+        console.log(response.data);
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("Error Fetching drinks");
+    }
+  };
+
+  useEffect(() => {
+    handleFetchFood();
+  }, []);
 
   const breakpointColumnsObj = {
     default: 4,
@@ -202,8 +57,8 @@ const Drinks = () => {
   const recordsPerPage = 9;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = DummyFood?.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(DummyFood?.length / recordsPerPage);
+  const records = allDrinks?.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(allDrinks?.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
   const [start, setStart] = useState(1);
@@ -248,7 +103,7 @@ const Drinks = () => {
 
     setsearchTimeout(
       setTimeout(() => {
-        const searchResults = DummyFood.filter(
+        const searchResults = allDrinks.filter(
           (item) =>
             item.title.toLowerCase().includes(searchText.toLowerCase()) ||
             item.category.toLowerCase().includes(searchText.toLowerCase())
@@ -412,7 +267,7 @@ const Drinks = () => {
             </ul>
           </nav>
         )}
-        {/* food */}
+        {/* drinks */}
         <div>
           {searchText ? (
             <>
@@ -428,8 +283,8 @@ const Drinks = () => {
                     columnClassName="my-masonry-grid_column"
                   >
                     {searchedResults?.map((item) => (
-                      <Link to={`/product/${item.id}`}>
-                        <div key={item.id} className="flex-shrink-0 mb-3">
+                      <Link to={`/drink/${item._id}`}>
+                        <div key={item._id} className="flex-shrink-0 mb-3">
                           <div className="relative rounded-lg group ">
                             <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
                               <div
@@ -471,7 +326,7 @@ const Drinks = () => {
                               <p className="text-zinc-900 font-bold">
                                 {item.title}
                               </p>
-                              <p className="text-zinc-800">{item.price}</p>
+                              <p className="text-zinc-800">Ksh. {item.price}</p>
                             </div>
                           </div>
                           {/*  */}
@@ -497,8 +352,8 @@ const Drinks = () => {
                 columnClassName="my-masonry-grid_column"
               >
                 {records?.map((item) => (
-                  <Link to={`/product/${item.id}`}>
-                    <div key={item.id} className="flex-shrink-0 mb-3">
+                  <Link to={`/drink/${item._id}`}>
+                    <div key={item._id} className="flex-shrink-0 mb-3">
                       <div className="relative rounded-lg group ">
                         <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
                           <div
@@ -534,7 +389,7 @@ const Drinks = () => {
                           <p className="text-zinc-900 font-bold">
                             {item.title}
                           </p>
-                          <p className="text-zinc-800">{item.price}</p>
+                          <p className="text-zinc-800">Ksh. {item.price}</p>
                         </div>
                       </div>
                       {/*  */}

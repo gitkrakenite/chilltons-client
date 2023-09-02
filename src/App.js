@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Progress from "./pages/Progress";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import SpecificDrink from "./pages/SpecificDrink";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/product/:id" element={<SpecificProduct />} />
+          <Route path="/drink/:id" element={<SpecificDrink />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineArrowUp, AiOutlineCloseCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import logo from "../assets/chlogo.png";
 
 const Cart = () => {
   const [quantity, setQuantity] = useState(1);
@@ -67,7 +68,7 @@ const Cart = () => {
     const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
     // Filter out the product with the specified ID
-    const updatedCartItems = cartItems.filter((item) => item.id !== id);
+    const updatedCartItems = cartItems.filter((item) => item._id !== id);
 
     // Update the cart state and localStorage with the updated cart items
     setProducts(updatedCartItems);
@@ -92,15 +93,27 @@ const Cart = () => {
           </div>
         )}
       </div>
+      {/* topbar */}
+      <div className=" w-full h-full top-0  text-white px-[10px] sm:px-[1em] md:px-[3em] lg:px-[4em] xl:px-[5em]  ">
+        <div className="flex justify-between items-center">
+          {/* logo */}
+          <div>
+            {/* <h2>CHILLTONS</h2> */}
+            <img src={logo} alt="" className="w-20 h-20" />
+          </div>
+        </div>
+      </div>
       {/* display cart items */}
       <div className=" px-[10px] sm:px-[3em]">
         {products.length < 1 ? (
           <div className="my-[10em]">
-            <h2 className="mb-[10px]">
+            <h2 className="mb-[10px] text-center">
               Hello There. There is no product in the cart.{" "}
             </h2>
-            <Link to="/home" className="text-red-600 underline text-center">
-              Back Shopping
+            <Link to="/home">
+              <p className="text-red-600 underline text-center">
+                Back Shopping
+              </p>
             </Link>
           </div>
         ) : (
@@ -112,7 +125,7 @@ const Cart = () => {
                   className="bg-slate-200 rounded-lg mb-[20px] px-1"
                 >
                   <div className="rounded-lg flex items-center justify-between">
-                    <div className=" flex gap-[80px] justify-between items-center">
+                    <div className=" flex gap-[50px] sm:gap-[80px]   justify-between items-center">
                       <div>
                         <img
                           src={item.image}
@@ -130,9 +143,9 @@ const Cart = () => {
                           <p className="font-bold mb-[10px]">{item.title}</p>
                         </div>
 
-                        <p>Ksh.{parseInt(item.price)}</p>
+                        <p>Total : Ksh. {parseInt(item.newPrice)}</p>
                         <div>
-                          <p>Quantity : {item.quantity}</p>
+                          <p>Quantity : {item.newQuantity} pcs</p>
                         </div>
                       </div>
                     </div>
@@ -140,7 +153,7 @@ const Cart = () => {
                     <div>
                       <p
                         className="text-orange-800 text-xl cursor-pointer"
-                        onClick={() => handleRemoveFromCart(item.id)}
+                        onClick={() => handleRemoveFromCart(item._id)}
                       >
                         <AiOutlineCloseCircle
                           title="Remove From Cart"

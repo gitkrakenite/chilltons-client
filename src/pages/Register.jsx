@@ -1,12 +1,79 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/chlogo.png";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
+import { useSelector, useDispatch } from "react-redux";
+import { register, reset } from "../features/auth/authSlice";
+import axios from "../axios";
 
 const Register = () => {
   const [seePass, setSeePass] = useState(false);
+  const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (navigator.onLine) {
+      console.log("online");
+    } else {
+      toast.error("Network Error");
+    }
+
+    if (isError) {
+      // toast.error("Please Check Login Details");
+      toast.error("Please Check Network");
+    }
+
+    if (isSuccess || user) {
+      // toast.success("Welcome to chilltons!");
+      navigate("/home");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+
+  const [loading, setLoading] = useState(false);
+
   const handleCreateAccount = async (e) => {
     e.preventDefault();
+
+    if (!username) {
+      return toast.error("Please enter username", { theme: "dark" });
+    }
+    if (!password || !phone) {
+      return toast.error("Either password or phone missing");
+    }
+
+    try {
+      setLoading(true);
+
+      // check whether username already exists
+      const nameToCheck = { username };
+      const { data } = await axios.post("/users/check", nameToCheck);
+      if (data == "not exist") {
+        // alert("proceed");
+        const userData = { username, phone, password };
+        dispatch(register(userData));
+        setLoading(false);
+        return;
+      } else {
+        toast.error(`username ${username} exists.`);
+        setLoading(false);
+        return;
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("Error creating account. Contact admin");
+    }
   };
   return (
     <div>
@@ -23,7 +90,10 @@ const Register = () => {
       <h2 className="text-center mb-[2em] mt-[1em] font-bold">
         Please Create An Account
       </h2>
-      <form className=" w-[98%] sm:w-[80%]  md:w-[60%] xl:w-[50%]  2xl:w-[40%] m-auto">
+      <form
+        className=" w-[98%] sm:w-[80%]  md:w-[60%] xl:w-[50%]  2xl:w-[40%] m-auto"
+        onSubmit={handleCreateAccount}
+      >
         <div className="flex flex-col gap-[10px] mb-[22px]">
           <label htmlFor="username" className="font-bold text-zinc-500">
             Create a username. No spaces
@@ -33,6 +103,8 @@ const Register = () => {
             id="username"
             placeholder="username i.e lucythegreat"
             className="bg-transparent border border-zinc-400 p-[8px] rounded-md outline-none"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div className="flex flex-col gap-[10px] mb-[22px]">
@@ -44,6 +116,8 @@ const Register = () => {
             id="phone"
             placeholder="Phone i.e 0xxx xxxxxx"
             className="bg-transparent border border-zinc-400 p-[8px] rounded-md outline-none"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
         </div>
         <div className="flex items-center gap-[10px]">
@@ -56,6 +130,8 @@ const Register = () => {
               id="password"
               placeholder="Phone i.e 0xxx xxxxxx"
               className="bg-transparent border border-zinc-400 p-[8px] rounded-md outline-none"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="flex-[0.02]">
@@ -72,13 +148,18 @@ const Register = () => {
             )}
           </div>
         </div>
+
         <div>
-          <button
-            className="bg-red-800 text-white p-[10px] w-full rounded-md outline-none"
-            onClick={handleCreateAccount}
-          >
-            Create Account
-          </button>
+          {loading ? (
+            <Spinner message="setting up ..." />
+          ) : (
+            <button
+              className="bg-red-800 text-white p-[10px] w-full rounded-md outline-none"
+              onClick={handleCreateAccount}
+            >
+              Create Account
+            </button>
+          )}
         </div>
       </form>
       <div className="text-center mt-[2em] underline">
