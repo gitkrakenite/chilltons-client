@@ -1,9 +1,21 @@
 // import { useState } from "react";
 import logo from "../assets/chlogo.png";
 import bg from "../assets/bg2.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Splash = () => {
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user, navigate]);
+
   return (
     <div className="w-full h-[100vh]">
       <img

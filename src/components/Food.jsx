@@ -27,7 +27,7 @@ const Food = () => {
       if (response) {
         setLoading(false);
         setAllFood(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       setLoading(false);
@@ -185,7 +185,7 @@ const Food = () => {
               <p className="mt-[-10px] ">{cartItemCount}</p>
             </Link>
             <div className="flex gap-[10px] sm:gap-[2em] ">
-              <a href="tel:0798 556471" title="call us">
+              <a href="tel:0798556471" title="call us">
                 <BiPhoneCall className="text-2xl" />
               </a>
             </div>
@@ -212,11 +212,195 @@ const Food = () => {
           </form>
         </div>
         {/* categories */}
+        {!searchText && (
+          <div className="mt-4">
+            <p className="mb-[15px]">FILTER FOOD VENDORS</p>
+            <div className=" overflow-x-scroll prompt">
+              <div className="flex justify-start md:justify-center">
+                <ul className="flex  space-x-5 text-red-600 pb-1 ">
+                  <li className="cursor-pointer" onClick={handleFetchFood}>
+                    all
+                  </li>
+                  <li
+                    className="cursor-pointer"
+                    onClick={async () => {
+                      setLoading(true);
+                      let vendor = "kioko";
+                      let dataToSend = { vendor };
+                      try {
+                        const response = await axios.post(
+                          "/food/vendor",
+                          dataToSend
+                        );
+                        if (response) {
+                          setLoading(false);
+                          setAllFood(response.data);
+                          // console.log(response.data);
+                        }
+                      } catch (error) {
+                        setLoading(false);
+                        toast.error("Failed to find kioko");
+                      }
+                    }}
+                  >
+                    kioko
+                  </li>
+                  <li
+                    className="cursor-pointer"
+                    onClick={async () => {
+                      setLoading(true);
+                      let vendor = "food_palace";
+                      let dataToSend = { vendor };
+                      try {
+                        const response = await axios.post(
+                          "/food/vendor",
+                          dataToSend
+                        );
+                        if (response) {
+                          setLoading(false);
+                          setAllFood(response.data);
+                          // console.log(response.data);
+                        }
+                      } catch (error) {
+                        setLoading(false);
+                        toast.error("Failed to find food palace");
+                      }
+                    }}
+                  >
+                    food_palace
+                  </li>
+                  <li
+                    className="cursor-pointer"
+                    onClick={async () => {
+                      setLoading(true);
+                      let vendor = "chilltons";
+                      let dataToSend = { vendor };
+                      try {
+                        const response = await axios.post(
+                          "/food/vendor",
+                          dataToSend
+                        );
+                        if (response) {
+                          setLoading(false);
+                          setAllFood(response.data);
+                          // console.log(response.data);
+                        }
+                      } catch (error) {
+                        setLoading(false);
+                        toast.error("Failed to find chilltons");
+                      }
+                    }}
+                  >
+                    chilltons
+                  </li>
+                  <li
+                    className="cursor-pointer"
+                    onClick={async () => {
+                      setLoading(true);
+                      let vendor = "cafetaria";
+                      let dataToSend = { vendor };
+                      try {
+                        const response = await axios.post(
+                          "/food/vendor",
+                          dataToSend
+                        );
+                        if (response) {
+                          setLoading(false);
+                          setAllFood(response.data);
+                          // console.log(response.data);
+                        }
+                      } catch (error) {
+                        setLoading(false);
+                        toast.error("Failed to find cafetaria");
+                      }
+                    }}
+                  >
+                    cafetaria
+                  </li>
+                  <li
+                    className="cursor-pointer"
+                    onClick={async () => {
+                      setLoading(true);
+                      let vendor = "dowells";
+                      let dataToSend = { vendor };
+                      try {
+                        const response = await axios.post(
+                          "/food/vendor",
+                          dataToSend
+                        );
+                        if (response) {
+                          setLoading(false);
+                          setAllFood(response.data);
+                          // console.log(response.data);
+                        }
+                      } catch (error) {
+                        setLoading(false);
+                        toast.error("Failed to find dowells");
+                      }
+                    }}
+                  >
+                    dowells
+                  </li>
+                  <li
+                    className="cursor-pointer"
+                    onClick={async () => {
+                      setLoading(true);
+                      let vendor = "njuguna";
+                      let dataToSend = { vendor };
+                      try {
+                        const response = await axios.post(
+                          "/food/vendor",
+                          dataToSend
+                        );
+                        if (response) {
+                          setLoading(false);
+                          setAllFood(response.data);
+                          // console.log(response.data);
+                        }
+                      } catch (error) {
+                        setLoading(false);
+                        toast.error("Failed to find njuguna");
+                      }
+                    }}
+                  >
+                    njuguna
+                  </li>
+                  <li
+                    className="cursor-pointer"
+                    onClick={async () => {
+                      setLoading(true);
+                      let vendor = "others";
+                      let dataToSend = { vendor };
+                      try {
+                        const response = await axios.post(
+                          "/food/vendor",
+                          dataToSend
+                        );
+                        if (response) {
+                          setLoading(false);
+                          setAllFood(response.data);
+                          // console.log(response.data);
+                        }
+                      } catch (error) {
+                        setLoading(false);
+                        toast.error("Failed to find others");
+                      }
+                    }}
+                  >
+                    others
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/*  */}
       </div>
 
       {/* wrapper */}
 
-      <div>
+      <div className="mt-[1em]">
         {/* pagination */}
         {!searchText && (
           <nav className="flex justify-center">
@@ -292,7 +476,7 @@ const Food = () => {
                                   <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
                                     <div>
                                       <p className="text-white">
-                                        #{item.category}
+                                        #{item.vendor}
                                       </p>
                                     </div>
                                     <div className="flex gap-[20px]">
@@ -348,63 +532,74 @@ const Food = () => {
                 </div>
               ) : (
                 <>
-                  <Masonry
-                    breakpointCols={breakpointColumnsObj}
-                    className="my-masonry-grid "
-                    columnClassName="my-masonry-grid_column"
-                  >
-                    {records?.map((item) => (
-                      <Link to={`/product/${item._id}`}>
-                        <div key={item._id} className="flex-shrink-0 mb-3 mt-6">
-                          <div className="relative rounded-lg group ">
-                            <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
-                              <div
-                                className="bg-gradient-to-t
-                                  from-transparent to-black opacity-75 w-full h-full rounded-md"
-                              >
-                                {/* top stats */}
-                                <div>
-                                  <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
-                                    <div>
-                                      <p className="text-white">
-                                        #{item.category}
-                                      </p>
-                                    </div>
-                                    <div className="flex gap-[20px]">
-                                      <p className="text-white text-md flex items-center gap-[5px]">
-                                        <AiOutlineLike className="text-lg" />
-                                        <span>{item.likes?.length}</span>
-                                      </p>
-                                      <p className="text-white text-md flex items-center gap-[5px]">
-                                        <AiOutlineComment className="text-lg" />
-                                        <span>{item.comments?.length}</span>
-                                      </p>
+                  {records.length < 1 ? (
+                    <div className="mt-[4em] text-center">
+                      <p>😥Nothing to show</p>
+                    </div>
+                  ) : (
+                    <Masonry
+                      breakpointCols={breakpointColumnsObj}
+                      className="my-masonry-grid "
+                      columnClassName="my-masonry-grid_column"
+                    >
+                      {records?.map((item) => (
+                        <Link to={`/product/${item._id}`}>
+                          <div
+                            key={item._id}
+                            className="flex-shrink-0 mb-3 mt-6"
+                          >
+                            <div className="relative rounded-lg group ">
+                              <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
+                                <div
+                                  className="bg-gradient-to-t
+                                from-transparent to-black opacity-75 w-full h-full rounded-md"
+                                >
+                                  {/* top stats */}
+                                  <div>
+                                    <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
+                                      <div>
+                                        <p className="text-white">
+                                          #{item.vendor}
+                                        </p>
+                                      </div>
+                                      <div className="flex gap-[20px]">
+                                        <p className="text-white text-md flex items-center gap-[5px]">
+                                          <AiOutlineLike className="text-lg" />
+                                          <span>{item.likes?.length}</span>
+                                        </p>
+                                        <p className="text-white text-md flex items-center gap-[5px]">
+                                          <AiOutlineComment className="text-lg" />
+                                          <span>{item.comments?.length}</span>
+                                        </p>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
 
-                                {/*  */}
+                                  {/*  */}
+                                </div>
+                              </div>
+
+                              <img
+                                src={item.image}
+                                alt=""
+                                className=" rounded-lg"
+                              />
+
+                              <div className="flex justify-between items-center text-zinc-700 mt-[5px]">
+                                <p className="text-zinc-900 font-bold">
+                                  {item.title}
+                                </p>
+                                <p className="text-zinc-800">
+                                  Ksh.{item.price}
+                                </p>
                               </div>
                             </div>
-
-                            <img
-                              src={item.image}
-                              alt=""
-                              className=" rounded-lg"
-                            />
-
-                            <div className="flex justify-between items-center text-zinc-700 mt-[5px]">
-                              <p className="text-zinc-900 font-bold">
-                                {item.title}
-                              </p>
-                              <p className="text-zinc-800">Ksh.{item.price}</p>
-                            </div>
+                            {/*  */}
                           </div>
-                          {/*  */}
-                        </div>
-                      </Link>
-                    ))}
-                  </Masonry>
+                        </Link>
+                      ))}
+                    </Masonry>
+                  )}
                 </>
               )}
             </>

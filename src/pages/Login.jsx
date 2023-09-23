@@ -46,11 +46,15 @@ const Login = () => {
   const handleSignin = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
+
     if (!username) {
+      setLoading(false);
       return toast.error("username missing");
     }
 
     if (!password) {
+      setLoading(false);
       return toast.error("password missing");
     }
 
@@ -125,19 +129,28 @@ const Login = () => {
             )}
           </div>
         </div>
-        <div>
-          <button
-            className="bg-red-800 text-white p-[10px] w-full rounded-md"
-            onClick={handleSignin}
-          >
-            Log in
-          </button>
-        </div>
+        {loading ? (
+          <div>
+            <Spinner message="authorizing ..." />
+          </div>
+        ) : (
+          <div>
+            <button
+              className="bg-red-800 text-white p-[10px] w-full rounded-md"
+              onClick={handleSignin}
+            >
+              Log in
+            </button>
+          </div>
+        )}
       </form>
-      <div className="text-center mt-[2em] underline">
-        <Link to="/register">
-          <p>Are You New Here</p>
+      <div className="mt-[2em] w-full flex justify-center gap-[3em] flex-wrap">
+        <Link to="/register" className="underline">
+          <p>Create Account ?</p>
         </Link>
+        <div className="underline">
+          <a href="tel:+254 798 556471">Call Us O798 556471</a>
+        </div>
       </div>
     </div>
   );

@@ -11,45 +11,9 @@ import Comment from "../components/Comment";
 
 import axios from "../axios";
 import { useSelector } from "react-redux";
+import Spinner from "../components/Spinner";
 
 const SpecificProduct = () => {
-  const DummyProduct = [
-    {
-      id: 11,
-      title: "Chicken Burger",
-      price: "120",
-      category: "snack",
-      description:
-        "Bread on either side with a slab of chicken, tomato and ketchup inside",
-      image:
-        "https://images.pexels.com/photos/2983099/pexels-photo-2983099.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      likes: [
-        {
-          id: 1,
-          sender: "mercydoe",
-        },
-        {
-          id: 2,
-          sender: "juliusdoe",
-        },
-      ],
-      comments: [
-        {
-          id: 1,
-          sender: "chrisdoe",
-          comment: "I like your fries",
-        },
-        {
-          id: 2,
-          sender: "mercyjoe",
-          comment: "I like the chipo masala",
-        },
-      ],
-      quantity: 5,
-      available: true,
-    },
-  ];
-
   const { user } = useSelector((state) => state.auth);
 
   // fetch the food
@@ -161,129 +125,146 @@ const SpecificProduct = () => {
       {/* wrapper */}
       <div>
         {/* topbar */}
-        <Link to="/home">
-          <div className=" px-2 sm:px-8 py-[1em] flex items-center gap-[10px]">
-            <AiOutlineArrowLeft className="text-xl" />
-            <p>Back Shopping</p>
-          </div>
-        </Link>
+        <div className="w-full ">
+          <Link to="/home">
+            <div className=" px-2 sm:px-8 py-[1em] flex items-center gap-[10px]">
+              <AiOutlineArrowLeft className="text-xl" />
+              <p>Back Shopping</p>
+            </div>
+          </Link>
+        </div>
 
         {/* product */}
-        <div className=" px-[10px] md:px-[3em] xl:px-[5em]">
-          {singleFood?.map((item) => (
-            <>
-              <div
-                key={item.id}
-                className="flex flex-col sm:flex-row gap-[2em]"
-              >
-                {/* img side */}
-                <div className="flex-[0.5]">
-                  <img src={item.image} alt="" className=" md:max-h-[500px]" />
-                </div>
-                {/* text side */}
-                <div className="flex-[0.5]">
-                  {/* options */}
-                  <div className="flex justify-between">
-                    <div>
-                      <p># {item.category}</p>
+
+        {loading ? (
+          <div className="w-full justify-center flex mt-[8em]">
+            <Spinner message="Fetching Product" />
+          </div>
+        ) : (
+          <div>
+            <div className=" px-[10px] md:px-[3em] xl:px-[5em]">
+              {singleFood?.map((item) => (
+                <>
+                  <div
+                    key={item.id}
+                    className="flex flex-col sm:flex-row gap-[2em]"
+                  >
+                    {/* img side */}
+                    <div className="flex-[0.5]">
+                      <img
+                        src={item.image}
+                        alt=""
+                        className=" md:max-h-[500px]"
+                      />
                     </div>
-                    <div className="flex gap-2">
-                      {item.available ? (
-                        <div className="flex gap-2">
-                          <AiOutlineShoppingCart
-                            className="text-2xl text-red-600 cursor-pointer z-10"
-                            title="Add To Cart"
-                            onClick={() =>
-                              handleAddCart(item, {
-                                newQuantity: quantity,
-                                newPrice,
-                              })
-                            }
-                          />
-                          <p>{cartItemCount}</p>
-                        </div>
-                      ) : (
-                        <span className="bg-orange-700 text-white p-2 rounded-md">
-                          Cannot Add To Cart
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-[1em]">
-                      <div className="flex items-center gap-2">
-                        <AiOutlineLike
-                          className="text-2xl text-red-600 cursor-pointer z-10"
-                          title="Like This Product"
-                          onClick={() => handleLikeProduct(item)}
-                        />
-                        <p>{item.likes.length}</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <AiOutlineComment className="text-2xl text-red-600 " />
-                        <p>{item.comments.length}</p>
-                      </div>
-                    </div>
-                  </div>
-                  {/*  */}
-                  <div>
-                    <p className="text-2xl font-bold my-[1em]">{item.title}</p>
-                    <p className="mb-[2em]">{item.description}</p>
-                    <p className="mb-[2em]">
-                      {item.available ? (
-                        <span className="bg-emerald-700 text-white p-2 rounded-md">
-                          available
-                        </span>
-                      ) : (
-                        <span className="bg-orange-700 text-white p-2 rounded-md">
-                          not available
-                        </span>
-                      )}
-                    </p>
-                    <div className="flex justify-between items-center">
-                      <div className=" flex gap-3 items-center">
+                    {/* text side */}
+                    <div className="flex-[0.5]">
+                      {/* options */}
+                      <div className="flex justify-between">
                         <div>
-                          <p>Add Quantity</p>
+                          <p># {item.category}</p>
                         </div>
-                        <select
-                          name="quantity"
-                          id="quantity"
-                          className="bg-zinc-800 rounded-md text-white p-1"
-                          value={quantity}
-                          onChange={(e) => setQuantity(e.target.value)}
-                        >
-                          {[...Array(item.quantity)].map((_, index) => (
-                            <option key={index} value={index + 1}>
-                              {index + 1}
-                            </option>
-                          ))}
-                        </select>
+                        <div className="flex gap-2">
+                          {item.available ? (
+                            <div className="flex gap-2">
+                              <AiOutlineShoppingCart
+                                className="text-2xl text-red-600 cursor-pointer z-10"
+                                title="Add To Cart"
+                                onClick={() =>
+                                  handleAddCart(item, {
+                                    newQuantity: quantity,
+                                    newPrice,
+                                  })
+                                }
+                              />
+                              <p>{cartItemCount}</p>
+                            </div>
+                          ) : (
+                            <span className="bg-orange-700 text-white p-2 rounded-md">
+                              Cannot Add To Cart
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-[1em]">
+                          <div className="flex items-center gap-2">
+                            <AiOutlineLike
+                              className="text-2xl text-red-600 cursor-pointer z-10"
+                              title="Like This Product"
+                              onClick={() => handleLikeProduct(item)}
+                            />
+                            <p>{item.likes.length}</p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <AiOutlineComment className="text-2xl text-red-600 " />
+                            <p>{item.comments.length}</p>
+                          </div>
+                        </div>
                       </div>
-
-                      <div className="">
-                        <p>
-                          {" "}
-                          Ksh.{" "}
-                          {
-                            (newPrice =
-                              parseInt(item.price) * parseInt(quantity))
-                          }
+                      {/*  */}
+                      <div>
+                        <p className="text-2xl font-bold my-[1em]">
+                          {item.title}
                         </p>
+                        <p className="mb-[2em]">{item.description}</p>
+                        <p className="mb-[2em]">
+                          {item.available ? (
+                            <span className="bg-emerald-700 text-white p-2 rounded-md">
+                              available
+                            </span>
+                          ) : (
+                            <span className="bg-orange-700 text-white p-2 rounded-md">
+                              not available
+                            </span>
+                          )}
+                        </p>
+                        <div className="flex justify-between items-center">
+                          <div className=" flex gap-3 items-center">
+                            <div>
+                              <p>Add Quantity</p>
+                            </div>
+                            <select
+                              name="quantity"
+                              id="quantity"
+                              className="bg-zinc-800 rounded-md text-white p-1"
+                              value={quantity}
+                              onChange={(e) => setQuantity(e.target.value)}
+                            >
+                              {[...Array(item.quantity)].map((_, index) => (
+                                <option key={index} value={index + 1}>
+                                  {index + 1}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
 
-                        {/* <p className="hidden">{(item.quantity = quantity)}</p> */}
-                        {/* <p>{item.quantity}</p> */}
+                          <div className="">
+                            <p>
+                              {" "}
+                              Ksh.{" "}
+                              {
+                                (newPrice =
+                                  parseInt(item.price) * parseInt(quantity))
+                              }
+                            </p>
+
+                            {/* <p className="hidden">{(item.quantity = quantity)}</p> */}
+                            {/* <p>{item.quantity}</p> */}
+                          </div>
+                        </div>
+                      </div>
+                      {/* comments` */}
+                      <div className="mt-[1em]">
+                        <Comment item={item} />
                       </div>
                     </div>
                   </div>
-                  {/* comments` */}
-                  <div className="mt-[1em]">
-                    <Comment item={item} />
-                  </div>
-                </div>
-              </div>
-              {/* RECOMMENDED */}
-              <div className="mt-[2em]">{/* <p>RECOMMENDED</p> */}</div>
-            </>
-          ))}
-        </div>
+                  {/* RECOMMENDED */}
+                  <div className="mt-[2em]">{/* <p>RECOMMENDED</p> */}</div>
+                </>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

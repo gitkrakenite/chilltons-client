@@ -12,6 +12,7 @@ import Progress from "./pages/Progress";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import SpecificDrink from "./pages/SpecificDrink";
+import Feedback from "./pages/Feedback";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Splash />} />
+          <Route path="/feedback" element={<Feedback />} />
           <Route path="/home" element={<Home />} />
           <Route path="/drinks" element={<Drinks />} />
           <Route path="/cart" element={<Cart />} />

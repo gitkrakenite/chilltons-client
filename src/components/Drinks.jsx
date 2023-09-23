@@ -189,7 +189,7 @@ const Drinks = () => {
               <p className="mt-[-10px] ">{cartItemCount}</p>
             </Link>
             <div className="flex gap-[10px] sm:gap-[2em] ">
-              <a href="tel:0798 556471" title="call us">
+              <a href="tel:0702610175" title="call us">
                 <BiPhoneCall className="text-2xl" />
               </a>
             </div>
@@ -220,187 +220,202 @@ const Drinks = () => {
 
       {/* wrapper */}
 
-      <div className=" px-[10px] sm:px-[1em] md:px-[2em] lg:px-[4em]  xl:px-[5em]">
-        {/* pagination */}
-        {!searchText && (
-          <nav className="flex justify-center">
-            <ul className="flex gap-[2em] mt-[10px] px-[5px] py-[10px] items-center ">
-              {/* map */}
+      {loading ? (
+        <div className="h-[70vh] w-full flex justify-between items-center">
+          <Spinner message="Fetching drinks" />
+        </div>
+      ) : (
+        <div className=" px-[10px] sm:px-[1em] md:px-[2em] lg:px-[4em]  xl:px-[5em]">
+          {/* pagination */}
+          {!searchText && (
+            <nav className="flex justify-center">
+              <ul className="flex gap-[2em] mt-[10px] px-[5px] py-[10px] items-center ">
+                {/* map */}
 
-              <>
-                <li>
-                  <a href="#" onClick={prevPage} className="text-zinc-800">
-                    <p className="text-zinc-500 font-bold hover:text-zinc-900">
-                      Prev
-                    </p>
-                  </a>
-                </li>
-                <li className="flex gap-[10px] ">
-                  {numbers.slice(start - 1, end).map((item, index) => (
-                    <li
-                      key={index}
-                      className={`normal-nav ${
-                        currentPage === item && "active-nav"
-                      }`}
-                    >
-                      <a
-                        href="#"
-                        onClick={() => {
-                          handleClick(item);
-                          changeCurrentPage(item);
-                        }}
+                <>
+                  <li>
+                    <a href="#" onClick={prevPage} className="text-zinc-800">
+                      <p className="text-zinc-500 font-bold hover:text-zinc-900">
+                        Prev
+                      </p>
+                    </a>
+                  </li>
+                  <li className="flex gap-[10px] ">
+                    {numbers.slice(start - 1, end).map((item, index) => (
+                      <li
+                        key={index}
+                        className={`normal-nav ${
+                          currentPage === item && "active-nav"
+                        }`}
                       >
-                        <p className="">{item}</p>
-                      </a>
-                    </li>
-                  ))}
-                </li>
+                        <a
+                          href="#"
+                          onClick={() => {
+                            handleClick(item);
+                            changeCurrentPage(item);
+                          }}
+                        >
+                          <p className="">{item}</p>
+                        </a>
+                      </li>
+                    ))}
+                  </li>
 
-                <li>
-                  <a href="#" onClick={nextPage}>
-                    <p className="text-zinc-500 font-bold hover:text-zinc-900">
-                      Next
-                    </p>
-                  </a>
-                </li>
-              </>
-            </ul>
-          </nav>
-        )}
-        {/* drinks */}
-        <div>
-          {searchText ? (
-            <>
-              <div className="mb-[15px] text-zinc-400">
-                {searchText && <p>Results For : {searchText}</p>}
-              </div>
+                  <li>
+                    <a href="#" onClick={nextPage}>
+                      <p className="text-zinc-500 font-bold hover:text-zinc-900">
+                        Next
+                      </p>
+                    </a>
+                  </li>
+                </>
+              </ul>
+            </nav>
+          )}
+          {/* drinks */}
+          <div>
+            {searchText ? (
+              <>
+                <div className="mb-[15px] text-zinc-400">
+                  {searchText && <p>Results For : {searchText}</p>}
+                </div>
 
-              {searchedResults?.length > 0 ? (
-                <div>
-                  <Masonry
-                    breakpointCols={breakpointColumnsObj}
-                    className="my-masonry-grid "
-                    columnClassName="my-masonry-grid_column"
-                  >
-                    {searchedResults?.map((item) => (
-                      <Link to={`/drink/${item._id}`}>
-                        <div key={item._id} className="flex-shrink-0 mb-3">
-                          <div className="relative rounded-lg group ">
-                            <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
-                              <div
-                                className="bg-gradient-to-t
+                {searchedResults?.length > 0 ? (
+                  <div>
+                    <Masonry
+                      breakpointCols={breakpointColumnsObj}
+                      className="my-masonry-grid "
+                      columnClassName="my-masonry-grid_column"
+                    >
+                      {searchedResults?.map((item) => (
+                        <Link to={`/drink/${item._id}`}>
+                          <div key={item._id} className="flex-shrink-0 mb-3">
+                            <div className="relative rounded-lg group ">
+                              <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
+                                <div
+                                  className="bg-gradient-to-t
                                   from-transparent to-black opacity-75 w-full h-full rounded-md"
-                              >
-                                {/* top stats */}
-                                <div>
-                                  <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
-                                    <div>
-                                      <p className="text-white">
-                                        #{item.category}
-                                      </p>
-                                    </div>
-                                    <div className="flex gap-[20px]">
-                                      <p className="text-white text-md flex items-center gap-[5px]">
-                                        <AiOutlineLike className="text-lg" />
-                                        <span>{item.likes?.length}</span>
-                                      </p>
-                                      <p className="text-white text-md flex items-center gap-[5px]">
-                                        <AiOutlineComment className="text-lg" />
-                                        <span>{item.comments?.length}</span>
-                                      </p>
+                                >
+                                  {/* top stats */}
+                                  <div>
+                                    <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
+                                      <div>
+                                        <p className="text-white">
+                                          #{item.category}
+                                        </p>
+                                      </div>
+                                      <div className="flex gap-[20px]">
+                                        <p className="text-white text-md flex items-center gap-[5px]">
+                                          <AiOutlineLike className="text-lg" />
+                                          <span>{item.likes?.length}</span>
+                                        </p>
+                                        <p className="text-white text-md flex items-center gap-[5px]">
+                                          <AiOutlineComment className="text-lg" />
+                                          <span>{item.comments?.length}</span>
+                                        </p>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
 
-                                {/*  */}
-                              </div>
-                            </div>
-
-                            <img
-                              src={item.image}
-                              alt=""
-                              className=" rounded-lg"
-                            />
-
-                            <div className="flex justify-between items-center text-zinc-700 mt-[5px]">
-                              <p className="text-zinc-900 font-bold">
-                                {item.title}
-                              </p>
-                              <p className="text-zinc-800">Ksh. {item.price}</p>
-                            </div>
-                          </div>
-                          {/*  */}
-                        </div>
-                      </Link>
-                    ))}
-                  </Masonry>
-                </div>
-              ) : (
-                <div className="w-full h-[65vh] flex justify-between items-center">
-                  <p className="text-center w-full justify-center flex">
-                    😥No results for :
-                    <span className="text-red-600">{searchText}</span>
-                  </p>
-                </div>
-              )}
-            </>
-          ) : (
-            <>
-              <Masonry
-                breakpointCols={breakpointColumnsObj}
-                className="my-masonry-grid "
-                columnClassName="my-masonry-grid_column"
-              >
-                {records?.map((item) => (
-                  <Link to={`/drink/${item._id}`}>
-                    <div key={item._id} className="flex-shrink-0 mb-3">
-                      <div className="relative rounded-lg group ">
-                        <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
-                          <div
-                            className="bg-gradient-to-t
-                                  from-transparent to-black opacity-75 w-full h-full rounded-md"
-                          >
-                            {/* top stats */}
-                            <div>
-                              <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
-                                <div>
-                                  <p className="text-white">#{item.category}</p>
-                                </div>
-                                <div className="flex gap-[20px]">
-                                  <p className="text-white text-md flex items-center gap-[5px]">
-                                    <AiOutlineLike className="text-lg" />
-                                    <span>{item.likes?.length}</span>
-                                  </p>
-                                  <p className="text-white text-md flex items-center gap-[5px]">
-                                    <AiOutlineComment className="text-lg" />
-                                    <span>{item.comments?.length}</span>
-                                  </p>
+                                  {/*  */}
                                 </div>
                               </div>
-                            </div>
 
+                              <img
+                                src={item.image}
+                                alt=""
+                                className=" rounded-lg"
+                              />
+
+                              <div className="flex justify-between items-center text-zinc-700 mt-[5px]">
+                                <p className="text-zinc-900 font-bold">
+                                  {item.title}
+                                </p>
+                                <p className="text-zinc-800">
+                                  Ksh. {item.price}
+                                </p>
+                              </div>
+                            </div>
                             {/*  */}
                           </div>
-                        </div>
+                        </Link>
+                      ))}
+                    </Masonry>
+                  </div>
+                ) : (
+                  <div className="w-full h-[65vh] flex justify-between items-center">
+                    <p className="text-center w-full justify-center flex">
+                      😥No results for :
+                      <span className="text-red-600">{searchText}</span>
+                    </p>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <Masonry
+                  breakpointCols={breakpointColumnsObj}
+                  className="my-masonry-grid "
+                  columnClassName="my-masonry-grid_column"
+                >
+                  {records?.map((item) => (
+                    <Link to={`/drink/${item._id}`}>
+                      <div key={item._id} className="flex-shrink-0 mb-3">
+                        <div className="relative rounded-lg group ">
+                          <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
+                            <div
+                              className="bg-gradient-to-t
+                                  from-transparent to-black opacity-75 w-full h-full rounded-md"
+                            >
+                              {/* top stats */}
+                              <div>
+                                <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
+                                  <div>
+                                    <p className="text-white">
+                                      #{item.category}
+                                    </p>
+                                  </div>
+                                  <div className="flex gap-[20px]">
+                                    <p className="text-white text-md flex items-center gap-[5px]">
+                                      <AiOutlineLike className="text-lg" />
+                                      <span>{item.likes?.length}</span>
+                                    </p>
+                                    <p className="text-white text-md flex items-center gap-[5px]">
+                                      <AiOutlineComment className="text-lg" />
+                                      <span>{item.comments?.length}</span>
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
 
-                        <img src={item.image} alt="" className=" rounded-lg" />
+                              {/*  */}
+                            </div>
+                          </div>
 
-                        <div className="flex justify-between items-center text-zinc-700 mt-[5px]">
-                          <p className="text-zinc-900 font-bold">
-                            {item.title}
-                          </p>
-                          <p className="text-zinc-800">Ksh. {item.price}</p>
+                          <img
+                            src={item.image}
+                            alt=""
+                            className=" rounded-lg"
+                          />
+
+                          <div className="flex justify-between items-center text-zinc-700 mt-[5px]">
+                            <p className="text-zinc-900 font-bold">
+                              {item.title}
+                            </p>
+                            <p className="text-zinc-800">Ksh. {item.price}</p>
+                          </div>
                         </div>
+                        {/*  */}
                       </div>
-                      {/*  */}
-                    </div>
-                  </Link>
-                ))}
-              </Masonry>
-            </>
-          )}
+                    </Link>
+                  ))}
+                </Masonry>
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
+
       {/* end wrapper */}
     </div>
   );

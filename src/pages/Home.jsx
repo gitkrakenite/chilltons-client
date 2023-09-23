@@ -3,7 +3,7 @@ import React from "react";
 import Food from "../components/Food";
 import { logout } from "../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { user } = useSelector((state) => state.auth);
@@ -19,19 +19,35 @@ const Home = () => {
       {/* wrapper */}
       <div>
         {/* topbar announcement */}
-        <div className="bg-red-800 text-white p-1">
+        <div
+          className="bg-red-800 text-white p-1 w-full z-50"
+          style={{ position: "fixed", top: 0, left: 0 }}
+        >
           <h2 className="text-center text-lg">Delivery from 8AM to 9PM</h2>
+          <p className="text-center text-sm">Delivery Fee Applies</p>
         </div>
 
-        <div className=" px-[10px] sm:px-[1em] md:px-[2em] lg:px-[4em] xl:px-[5em] pt-4">
+        <div className=" px-[10px] sm:px-[1em] md:px-[2em] lg:px-[4em] xl:px-[5em] pt-[5em]">
           {/* food */}
           {user ? (
-            <p
-              className="text-end font-bold mb-[13px] cursor-pointer"
-              onClick={handleLogout}
-            >
-              LOGOUT
-            </p>
+            <div className="flex justify-end gap-4">
+              <Link to="/feedback">
+                <p className="text-end font-bold mb-[13px] cursor-pointer">
+                  FEEDBACK
+                </p>
+              </Link>
+              <Link to="/feedback">
+                <p className="text-end font-bold mb-[13px] cursor-pointer">
+                  ORDERS
+                </p>
+              </Link>
+              <p
+                className="text-end font-bold mb-[13px] cursor-pointer"
+                onClick={handleLogout}
+              >
+                LOGOUT
+              </p>
+            </div>
           ) : (
             <p
               className="text-end font-bold mb-[13px] cursor-pointer"

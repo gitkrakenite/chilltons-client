@@ -162,10 +162,13 @@ const Register = () => {
           )}
         </div>
       </form>
-      <div className="text-center mt-[2em] underline">
-        <Link to="/login">
-          <p>Already Have An Account</p>
+      <div className="mt-[2em] w-full flex justify-center gap-[3em] flex-wrap">
+        <Link to="/login" className="underline">
+          <p>Sign in ?</p>
         </Link>
+        <div className="underline">
+          <a href="tel:+254 798 556471">Call Us O798 556471</a>
+        </div>
       </div>
     </div>
   );
