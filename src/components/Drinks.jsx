@@ -31,7 +31,7 @@ const Drinks = () => {
       if (response) {
         setLoading(false);
         setAllDrinks(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       setLoading(false);

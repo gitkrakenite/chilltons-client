@@ -13,6 +13,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import SpecificDrink from "./pages/SpecificDrink";
 import Feedback from "./pages/Feedback";
+import Orders from "./pages/Orders";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/home" element={<Home />} />
           <Route path="/drinks" element={<Drinks />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/progress" element={<Progress />} />

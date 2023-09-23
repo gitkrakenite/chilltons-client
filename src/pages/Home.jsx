@@ -36,7 +36,7 @@ const Home = () => {
                   FEEDBACK
                 </p>
               </Link>
-              <Link to="/feedback">
+              <Link to="/orders">
                 <p className="text-end font-bold mb-[13px] cursor-pointer">
                   ORDERS
                 </p>

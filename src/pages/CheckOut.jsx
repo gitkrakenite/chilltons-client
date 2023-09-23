@@ -60,10 +60,6 @@ const CheckOut = () => {
       return toast.error("Phone number or location missing");
     }
 
-    if (!moreInfo) {
-      return toast.error("Enter more info about your order or enter n/a");
-    }
-
     try {
       setLoading(true);
       const dataToSend = {
@@ -110,8 +106,8 @@ const CheckOut = () => {
             ** Delivery Charges **
           </h2>
           <ul className="text-center">
-            <li>Inside Campus extra Ksh. 20</li>
-            <li>Outside Campus upto Mexico Hostel, extra Ksh. 50</li>
+            <li>Within Campus extra Ksh. 20</li>
+            <li>Outside Campus upto Mexico Hostel, extra Ksh. 40</li>
           </ul>
         </div>
 
