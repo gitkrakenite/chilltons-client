@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "../axios";
 import { useSelector } from "react-redux";
@@ -11,7 +11,16 @@ const Orders = () => {
   const [myOrders, setMyOrders] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+  }, [user, navigate]);
 
   const handleFetchOrders = async () => {
     try {

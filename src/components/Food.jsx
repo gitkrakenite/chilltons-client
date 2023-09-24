@@ -297,7 +297,7 @@ const Food = () => {
                     className="cursor-pointer"
                     onClick={async () => {
                       setLoading(true);
-                      let vendor = "cafetaria";
+                      let vendor = "cafeteria";
                       let dataToSend = { vendor };
                       try {
                         const response = await axios.post(
@@ -315,7 +315,7 @@ const Food = () => {
                       }
                     }}
                   >
-                    cafetaria
+                    cafeteria
                   </li>
                   <li
                     className="cursor-pointer"
@@ -365,7 +365,7 @@ const Food = () => {
                   >
                     njuguna
                   </li>
-                  <li
+                  {/* <li
                     className="cursor-pointer"
                     onClick={async () => {
                       setLoading(true);
@@ -388,7 +388,7 @@ const Food = () => {
                     }}
                   >
                     others
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>
@@ -463,7 +463,7 @@ const Food = () => {
                     columnClassName="my-masonry-grid_column"
                   >
                     {searchedResults?.map((item) => (
-                      <Link to={`/product/${item._id}`}>
+                      <Link to={`/product/${item._id}`} key={item._id}>
                         <div key={item._id} className="flex-shrink-0 mb-3">
                           <div className="relative rounded-lg group ">
                             <div className="overlay absolute inset-0 flex items-center justify-center opacity-100">
@@ -543,7 +543,7 @@ const Food = () => {
                       columnClassName="my-masonry-grid_column"
                     >
                       {records?.map((item) => (
-                        <Link to={`/product/${item._id}`}>
+                        <Link to={`/product/${item._id}`} key={item._id}>
                           <div
                             key={item._id}
                             className="flex-shrink-0 mb-3 mt-6"

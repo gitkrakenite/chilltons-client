@@ -55,6 +55,8 @@ const Progress = () => {
           <div>
             <p className="text-center mt-[1em]">We Have Seen Your Order</p>
 
+            {console.log(currentOrder)}
+
             {currentOrder._id && (
               <>
                 <div className=" mt-[1em]">

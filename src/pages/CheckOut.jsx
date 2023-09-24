@@ -106,8 +106,8 @@ const CheckOut = () => {
             ** Delivery Charges **
           </h2>
           <ul className="text-center">
-            <li>Within Campus extra Ksh. 20</li>
-            <li>Outside Campus upto Mexico Hostel, extra Ksh. 40</li>
+            <li>Within Campus extra Ksh. 22</li>
+            <li>Outside Campus, extra Ksh. 42</li>
           </ul>
         </div>
 
@@ -133,16 +133,28 @@ const CheckOut = () => {
               onChange={(e) => setLocation(e.target.value)}
             ></textarea>
             {/* Anymore details */}
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="2"
-              placeholder="You can add more info about your order here."
-              className="bg-transparent border border-zinc-500 rounded-md p-[8px]"
+
+            <select
+              name="delivery"
+              id="delivery"
               value={moreInfo}
               onChange={(e) => setMoreInfo(e.target.value)}
-            ></textarea>
+              className="bg-transparent border border-zinc-500 rounded-md p-[8px]"
+            >
+              <option value="">Choose</option>
+              <option value="inside">inside campus</option>
+              <option value="outside">outside campus</option>
+            </select>
+
+            <div>
+              <p className="text-center text-sm mb-2">
+                Payment inclusive of delivery fee
+              </p>
+              <p className="text-center">
+                Payment Upon delivery{" "}
+                <span className="text-red-600 font-bold">0798 556471</span>{" "}
+              </p>
+            </div>
 
             {loading ? (
               <div>

@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import SpecificDrink from "./pages/SpecificDrink";
 import Feedback from "./pages/Feedback";
 import Orders from "./pages/Orders";
+import SendUs from "./pages/SendUs";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Splash />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/sendus" element={<SendUs />} />
           <Route path="/drinks" element={<Drinks />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/cart" element={<Cart />} />

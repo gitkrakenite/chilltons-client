@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +9,13 @@ import Spinner from "../components/Spinner";
 const Feedback = () => {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+  }, [user, navigate]);
 
   //handle create feedback
   const [loading, setLoading] = useState(false);
