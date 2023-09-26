@@ -30,7 +30,7 @@ const SpecificProduct = () => {
       if (response) {
         setLoading(false);
         setSingleFood([response.data]);
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       setLoading(false);
@@ -202,9 +202,12 @@ const SpecificProduct = () => {
                       </div>
                       {/*  */}
                       <div>
-                        <p className="text-2xl font-bold my-[1em]">
-                          {item.title}
-                        </p>
+                        <div className="my-[1em]">
+                          <p className="text-2xl font-bold mb-2">
+                            {item.title}
+                          </p>
+                          <p className="text-teal-700">from {item.vendor}</p>
+                        </div>
                         <p className="mb-[2em]">{item.description}</p>
                         <p className="mb-[2em]">
                           {item.available ? (

@@ -55,7 +55,7 @@ const Progress = () => {
           <div>
             <p className="text-center mt-[1em]">We Have Seen Your Order</p>
 
-            {console.log(currentOrder)}
+            {/* {console.log(currentOrder)} */}
 
             {currentOrder._id && (
               <>
@@ -88,7 +88,7 @@ const Progress = () => {
             )}
           </div>
 
-          {console.log(currentOrder)}
+          {/* {console.log(currentOrder)} */}
 
           {!loading && (
             <FiRefreshCcw

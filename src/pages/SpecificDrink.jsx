@@ -30,7 +30,7 @@ const SpecificDrink = () => {
       if (response) {
         setLoading(false);
         setSingleFood([response.data]);
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       setLoading(false);

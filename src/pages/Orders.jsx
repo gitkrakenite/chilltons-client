@@ -31,9 +31,10 @@ const Orders = () => {
       if (response) {
         setLoading(false);
         setMyOrders(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
+      setLoading(false);
       toast.error("Error Fetching orders");
     }
   };
@@ -48,7 +49,7 @@ const Orders = () => {
         {/* topbar */}
         <div>
           <Link to="/home">
-            <AiOutlineArrowLeft className="3xl" />
+            <AiOutlineArrowLeft className="text-2xl" />
           </Link>
         </div>
 
@@ -60,42 +61,52 @@ const Orders = () => {
           <div>
             <h2 className="my-[2em] font-bold">Your Previous Orders</h2>
             <div>
-              {myOrders.map((item) => (
-                <div key={item._id} className="mb-[30px] bg-zinc-200">
-                  {/* items ordered */}
-                  <div className="mb-5">
-                    {item?.product?.map((del) => (
-                      <div key={del._id} className="mb-[20px] ">
-                        <div className="flex gap-[20px] mb-[5px]">
-                          <p>Vendor : {del.vendor}</p>
-                          <p>Category : {del.category}</p>
-                        </div>
-                        <p className="mb-[5px] font-bold">{del.title}</p>
-                        <img
-                          src={del.image}
-                          alt=""
-                          className="h-[50px] object-contain mb-[5px]"
-                        />
-                        <div className="flex gap-[20px] items-center ">
-                          <p>{del.newQuantity}pcs</p>
-                          <p>Ksh. {del.newPrice}</p>
+              {myOrders?.length < 1 ? (
+                <div className="h-[70vh] w-full flex justify-center items-center">
+                  <p className="text-center">
+                    You haven't created an order recently
+                  </p>
+                </div>
+              ) : (
+                <>
+                  {myOrders?.map((item) => (
+                    <div key={item._id} className="mb-[30px] bg-zinc-200">
+                      {/* items ordered */}
+                      <div className="mb-5">
+                        {item?.product?.map((del) => (
+                          <div key={del._id} className="mb-[20px] ">
+                            <div className="flex gap-[20px] mb-[5px]">
+                              <p>Vendor : {del.vendor}</p>
+                              <p>Category : {del.category}</p>
+                            </div>
+                            <p className="mb-[5px] font-bold">{del.title}</p>
+                            <img
+                              src={del.image}
+                              alt=""
+                              className="h-[50px] object-contain mb-[5px]"
+                            />
+                            <div className="flex gap-[20px] items-center ">
+                              <p>{del.newQuantity}pcs</p>
+                              <p>Ksh. {del.newPrice}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      {/* user details */}
+                      <div>
+                        {/* <p>{item.newPhone}</p> */}
+                        <div className="flex gap-[20px] flex-wrap items-center justify-between">
+                          <p>{item.location}</p>
+                          <p>{item.progress}</p>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                  {/* user details */}
-                  <div>
-                    {/* <p>{item.newPhone}</p> */}
-                    <div className="flex gap-[20px] flex-wrap items-center justify-between">
-                      <p>{item.location}</p>
-                      <p>{item.progress}</p>
+                      <div className="text-orange-600 text-sm">
+                        {moment(item.createdAt).fromNow()}
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-orange-600 text-sm">
-                    {moment(item.createdAt).fromNow()}
-                  </div>
-                </div>
-              ))}
+                  ))}
+                </>
+              )}
             </div>
           </div>
         )}

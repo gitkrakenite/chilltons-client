@@ -115,6 +115,12 @@ const Feedback = () => {
                 )}
               </div>
             </form>
+            {/* whatsapp */}
+            <div className="text-center underline mt-[20px]">
+              <a href="https://chat.whatsapp.com/KnAhKCJMhfZ6iXuq3Kl63j">
+                Join Our Group
+              </a>
+            </div>
           </div>
         </div>
       </div>
