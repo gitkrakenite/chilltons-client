@@ -31,9 +31,9 @@ const Home = () => {
           {/* food */}
           {user ? (
             <div className="flex justify-end gap-4">
-              <Link to="/sendus">
+              <Link to="/charges">
                 <p className="text-end font-bold mb-[13px] cursor-pointer">
-                  SENDUS
+                  FEE
                 </p>
               </Link>
               <Link to="/feedback">

@@ -185,6 +185,7 @@ const SpecificProduct = () => {
                             </span>
                           )}
                         </div>
+
                         <div className="flex items-center gap-[1em]">
                           <div className="flex items-center gap-2">
                             <AiOutlineLike
@@ -220,6 +221,13 @@ const SpecificProduct = () => {
                             </span>
                           )}
                         </p>
+                        <div className="mb-[1.8em]">
+                          <p className="font-bold text-red-500">Disclaimer</p>
+                          <p>
+                            This product may need you to purchase a container
+                            for packing
+                          </p>
+                        </div>
                         <div className="flex justify-between items-center">
                           <div className=" flex gap-3 items-center">
                             <div>

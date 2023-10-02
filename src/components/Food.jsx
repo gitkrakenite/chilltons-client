@@ -1,10 +1,12 @@
 import {
+  AiOutlineArrowRight,
   AiOutlineArrowUp,
   AiOutlineComment,
   AiOutlineLike,
   AiOutlineSearch,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
+import { GiCook } from "react-icons/gi";
 
 import { Link } from "react-router-dom";
 import Masonry from "react-masonry-css";
@@ -214,15 +216,24 @@ const Food = () => {
         {/* categories */}
         {!searchText && (
           <div className="mt-4">
-            <p className="mb-[15px]">FILTER FOOD VENDORS</p>
+            <div className="mb-[15px] flex items-center gap-2">
+              <p className="">SCROLL TO FILTER</p>
+              <p>
+                <AiOutlineArrowRight />
+              </p>
+            </div>
             <div className=" overflow-x-scroll prompt">
               <div className="flex justify-start md:justify-center">
-                <ul className="flex  space-x-5 text-red-600 pb-1 ">
-                  <li className="cursor-pointer" onClick={handleFetchFood}>
+                <ul className="flex  space-x-7  pb-1 ">
+                  <li
+                    className="cursor-pointer flex items-center gap-1"
+                    onClick={handleFetchFood}
+                  >
+                    <GiCook />
                     all
                   </li>
                   <li
-                    className="cursor-pointer"
+                    className="cursor-pointer flex items-center gap-1"
                     onClick={async () => {
                       setLoading(true);
                       let vendor = "kioko";
@@ -243,10 +254,11 @@ const Food = () => {
                       }
                     }}
                   >
+                    <GiCook />
                     kioko
                   </li>
                   <li
-                    className="cursor-pointer"
+                    className="cursor-pointer flex items-center gap-1"
                     onClick={async () => {
                       setLoading(true);
                       let vendor = "food_palace";
@@ -267,10 +279,11 @@ const Food = () => {
                       }
                     }}
                   >
+                    <GiCook />
                     food_palace
                   </li>
                   <li
-                    className="cursor-pointer"
+                    className="cursor-pointer flex items-center gap-1"
                     onClick={async () => {
                       setLoading(true);
                       let vendor = "chilltons";
@@ -291,10 +304,11 @@ const Food = () => {
                       }
                     }}
                   >
+                    <GiCook />
                     chilltons
                   </li>
                   <li
-                    className="cursor-pointer"
+                    className="cursor-pointer flex items-center gap-1"
                     onClick={async () => {
                       setLoading(true);
                       let vendor = "cafeteria";
@@ -315,10 +329,11 @@ const Food = () => {
                       }
                     }}
                   >
+                    <GiCook />
                     cafeteria
                   </li>
                   <li
-                    className="cursor-pointer"
+                    className="cursor-pointer flex items-center gap-1"
                     onClick={async () => {
                       setLoading(true);
                       let vendor = "dowells";
@@ -339,10 +354,36 @@ const Food = () => {
                       }
                     }}
                   >
+                    <GiCook />
                     dowells
                   </li>
                   <li
-                    className="cursor-pointer"
+                    className="cursor-pointer flex items-center gap-1"
+                    onClick={async () => {
+                      setLoading(true);
+                      let vendor = "supafries";
+                      let dataToSend = { vendor };
+                      try {
+                        const response = await axios.post(
+                          "/food/vendor",
+                          dataToSend
+                        );
+                        if (response) {
+                          setLoading(false);
+                          setAllFood(response.data);
+                          // console.log(response.data);
+                        }
+                      } catch (error) {
+                        setLoading(false);
+                        toast.error("Failed to find supa fries");
+                      }
+                    }}
+                  >
+                    <GiCook />
+                    supa_fries
+                  </li>
+                  <li
+                    className="cursor-pointer flex items-center gap-1"
                     onClick={async () => {
                       setLoading(true);
                       let vendor = "njuguna";
@@ -363,13 +404,14 @@ const Food = () => {
                       }
                     }}
                   >
+                    <GiCook />
                     njuguna
                   </li>
-                  {/* <li
-                    className="cursor-pointer"
+                  <li
+                    className="cursor-pointer flex items-center gap-1"
                     onClick={async () => {
                       setLoading(true);
-                      let vendor = "others";
+                      let vendor = "j&s";
                       let dataToSend = { vendor };
                       try {
                         const response = await axios.post(
@@ -383,12 +425,38 @@ const Food = () => {
                         }
                       } catch (error) {
                         setLoading(false);
-                        toast.error("Failed to find others");
+                        toast.error("Failed to find j&s");
                       }
                     }}
                   >
-                    others
-                  </li> */}
+                    <GiCook />
+                    J&S
+                  </li>
+                  <li
+                    className="cursor-pointer flex items-center gap-1"
+                    onClick={async () => {
+                      setLoading(true);
+                      let vendor = "shawarma_hub";
+                      let dataToSend = { vendor };
+                      try {
+                        const response = await axios.post(
+                          "/food/vendor",
+                          dataToSend
+                        );
+                        if (response) {
+                          setLoading(false);
+                          setAllFood(response.data);
+                          // console.log(response.data);
+                        }
+                      } catch (error) {
+                        setLoading(false);
+                        toast.error("Failed to find shawarma_hub");
+                      }
+                    }}
+                  >
+                    <GiCook />
+                    shawarma_hub
+                  </li>
                 </ul>
               </div>
             </div>

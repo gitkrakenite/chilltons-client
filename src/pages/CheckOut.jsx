@@ -101,14 +101,11 @@ const CheckOut = () => {
         <h2 className="text-lg font-bold mb-[1em]">Shipping Details</h2>
 
         <div className="">
-          <h2 className="text-center font-bold mb-[10px]">
-            {" "}
-            ** Delivery Charges **
-          </h2>
-          <ul className="text-center">
-            <li>Within Campus extra Ksh. 22</li>
-            <li>Outside Campus, extra Ksh. 42</li>
-          </ul>
+          <Link to="/charges">
+            <h2 className="text-center font-bold mb-[10px] text-red-500 underline">
+              click to see delivery charges
+            </h2>
+          </Link>
         </div>
 
         <form className=" pt-[2em] w-[98%] sm:w-[80%]  md:w-[60%] xl:w-[50%]  2xl:w-[40%] m-auto">
@@ -149,10 +146,6 @@ const CheckOut = () => {
             <div>
               <p className="text-center text-sm mb-2">
                 Payment inclusive of delivery fee
-              </p>
-              <p className="text-center">
-                Payment Upon delivery{" "}
-                <span className="text-red-600 font-bold">0798 556471</span>{" "}
               </p>
             </div>
 

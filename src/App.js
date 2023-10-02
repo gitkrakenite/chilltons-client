@@ -15,6 +15,7 @@ import SpecificDrink from "./pages/SpecificDrink";
 import Feedback from "./pages/Feedback";
 import Orders from "./pages/Orders";
 import SendUs from "./pages/SendUs";
+import Charges from "./pages/Charges";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/drinks" element={<Drinks />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/charges" element={<Charges />} />
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/register" element={<Register />} />

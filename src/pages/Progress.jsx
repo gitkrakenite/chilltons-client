@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Hello from "../assets/hello.png";
 import { FiRefreshCcw } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { MdOutlineContentCopy } from "react-icons/md";
 import axios from "../axios";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
@@ -37,6 +38,17 @@ const Progress = () => {
     }
   };
 
+  const textRef = useRef(null);
+
+  const handleCopy = () => {
+    if (textRef.current) {
+      textRef.current.select();
+      document.execCommand("copy");
+      // You can also display a success message or perform any other action after copying.
+      toast.success("Copied To Clipboard");
+    }
+  };
+
   return (
     <div className="px-[10px] sm:px-[1em] md:px-[2em] lg:px-[4em] xl:px-[5em] pt-[1em]">
       {/* wrapper */}
@@ -55,6 +67,8 @@ const Progress = () => {
           <div>
             <p className="text-center mt-[1em]">We Have Seen Your Order</p>
 
+            <p className="text-center">Total : Items + delivery + container</p>
+
             {/* {console.log(currentOrder)} */}
 
             {currentOrder._id && (
@@ -69,13 +83,33 @@ const Progress = () => {
                 </div>
               </>
             )}
-
-            <p className="text-center mt-[1em]">
-              Keep Pressing the icon below to check progress
-            </p>
           </div>
         </div>
+
+        {/*  */}
+        <div>
+          <div className="flex justify-center gap-[20px] mt-[20px] ">
+            <input
+              type="text"
+              ref={textRef}
+              value={`0798556471`}
+              readOnly
+              className="bg-transparent outline-none text-red-600"
+            />
+            <button onClick={handleCopy}>
+              <MdOutlineContentCopy
+                className="text-3xl"
+                title="Click To Copy"
+              />
+            </button>
+          </div>
+        </div>
+        {/*  */}
+
         {/*, received, preparing, shipping, rejected, delivered  */}
+        <p className="text-center mt-[1em]">
+          Keep Pressing the icon below to check progress
+        </p>
 
         <div className="mt-[2em] flex justify-evenly gap-[20px] items-center">
           <div>
