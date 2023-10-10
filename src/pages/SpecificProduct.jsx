@@ -5,7 +5,7 @@ import {
   AiOutlineLike,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Comment from "../components/Comment";
 
@@ -120,6 +120,43 @@ const SpecificProduct = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  // let us use localstorage to store cart
+  const handleCheckOut = async (product, extraData) => {
+    // Clear the existing cart items
+    localStorage.setItem("cart", JSON.stringify([]));
+
+    // Retrieve the existing cart items from localStorage
+    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Check if the product already exists in the cart
+    const existingProduct = cartItems.find((item) => item._id === product._id);
+
+    if (existingProduct) {
+      navigate("/cart");
+      toast.info("Already Added To Cart");
+      return;
+    } else {
+      // Clear the existing cart items
+      localStorage.setItem("cart", JSON.stringify([]));
+      // Merge the product and extraData into a new object
+      const productWithExtraData = { ...product, ...extraData };
+
+      // Create a new cart with the existing items and the new product
+      const updatedCart = [...cartItems, productWithExtraData];
+
+      // Update the cart items in localStorage
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+      // Update the cart item count in the parent component
+      setCartItemCount((prevCount) => prevCount + 1);
+
+      navigate("/checkout");
+      return;
+    }
+  };
+
   return (
     <div>
       {/* wrapper */}
@@ -162,12 +199,31 @@ const SpecificProduct = () => {
                       {/* options */}
                       <div className="flex justify-between">
                         <div>
-                          <p># {item.category}</p>
+                          <p># {item.vendor}</p>
                         </div>
-                        <div className="flex gap-2">
-                          {item.available ? (
-                            <div className="flex gap-2">
-                              <AiOutlineShoppingCart
+
+                        {user && (
+                          <div className="flex items-center gap-[1em]">
+                            <div className="flex items-center gap-2">
+                              <AiOutlineLike
+                                className="text-2xl text-red-600 cursor-pointer z-10"
+                                title="Like This Product"
+                                onClick={() => handleLikeProduct(item)}
+                              />
+                              <p>{item.likes.length}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <AiOutlineComment className="text-2xl text-red-600 " />
+                              <p>{item.comments.length}</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      {/* add or check out */}
+                      <div className="flex gap-2 my-[1em]">
+                        {item.available ? (
+                          <div className="flex gap-2">
+                            {/* <AiOutlineShoppingCart
                                 className="text-2xl text-red-600 cursor-pointer z-10"
                                 title="Add To Cart"
                                 onClick={() =>
@@ -177,29 +233,37 @@ const SpecificProduct = () => {
                                   })
                                 }
                               />
-                              <p>{cartItemCount}</p>
+                              <p>{cartItemCount}</p> */}
+                            <div className="flex gap-[20px] justify-between items-center">
+                              <button
+                                onClick={() =>
+                                  handleAddCart(item, {
+                                    newQuantity: quantity,
+                                    newPrice,
+                                  })
+                                }
+                                className="bg-red-700 text-white p-2 rounded-lg"
+                              >
+                                Add To Cart
+                              </button>
+                              <button
+                                onClick={() =>
+                                  handleCheckOut(item, {
+                                    newQuantity: quantity,
+                                    newPrice,
+                                  })
+                                }
+                                className="border border-red-700  p-2 rounded-lg"
+                              >
+                                Direct Checkout
+                              </button>
                             </div>
-                          ) : (
-                            <span className="bg-orange-700 text-white p-2 rounded-md">
-                              Cannot Add To Cart
-                            </span>
-                          )}
-                        </div>
-
-                        <div className="flex items-center gap-[1em]">
-                          <div className="flex items-center gap-2">
-                            <AiOutlineLike
-                              className="text-2xl text-red-600 cursor-pointer z-10"
-                              title="Like This Product"
-                              onClick={() => handleLikeProduct(item)}
-                            />
-                            <p>{item.likes.length}</p>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <AiOutlineComment className="text-2xl text-red-600 " />
-                            <p>{item.comments.length}</p>
-                          </div>
-                        </div>
+                        ) : (
+                          <span className="bg-orange-700 text-white p-2 rounded-md">
+                            Cannot Add To Cart
+                          </span>
+                        )}
                       </div>
                       {/*  */}
                       <div>

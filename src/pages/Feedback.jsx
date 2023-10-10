@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "../axios";
 import Spinner from "../components/Spinner";
+import { MdOutlineContentCopy } from "react-icons/md";
+import { logout } from "../features/auth/authSlice";
 
 const Feedback = () => {
   const { user } = useSelector((state) => state.auth);
@@ -22,28 +24,112 @@ const Feedback = () => {
   const [category, setCategory] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleCreate = async () => {
-    try {
-      if (!category || !message) {
-        return toast.error("Either category or message missing");
-      }
-      if (!user) {
-        return toast.error("You must be a signed in user");
-      }
+  const dispatch = useDispatch();
 
-      setLoading(true);
-      let sender = user.username;
-      const dataToSend = { sender, category, message };
-      const response = await axios.post("/feedback/create", dataToSend);
-      if (response) {
-        setLoading(false);
-        navigate("/home");
-        toast.success("Feedback sent");
-      }
-    } catch (error) {
-      setLoading(false);
-      toast.error("Error sending feedback");
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    if (!category || !message) {
+      return toast.error("Either category or message missing");
     }
+    if (!user) {
+      return toast.error("You must be a signed in user");
+    }
+
+    // check whether username exists in DB
+    let username = user?.username;
+    const nameToCheck = { username };
+    const { data } = await axios.post("/users/check", nameToCheck);
+    if (data == "not exist") {
+      setLoading(false);
+      handleLogout();
+      toast.warning("Please sign in again");
+      return;
+    } else {
+      try {
+        setLoading(true);
+        let sender = user.username;
+        const dataToSend = { sender, category, message };
+        const response = await axios.post("/feedback/create", dataToSend);
+        if (response) {
+          setLoading(false);
+          navigate("/home");
+          toast.success("Feedback sent");
+        }
+      } catch (error) {
+        setLoading(false);
+        toast.error("Failed to send");
+      }
+    }
+  };
+
+  // working on modal
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+  // what happens when we click on a post
+  const handlePostClick = () => {
+    setIsPopUpOpen(true);
+  };
+
+  useEffect(() => {
+    handlePostClick();
+  }, []);
+
+  const textRef = useRef(null);
+
+  const handleCopy = () => {
+    if (textRef.current) {
+      textRef.current.select();
+      document.execCommand("copy");
+      // You can also display a success message or perform any other action after copying.
+      toast.success("Copied To Clipboard");
+    }
+  };
+
+  const PopUpPage = ({ onClose }) => {
+    return (
+      <div className="pop-up-page prompt">
+        {/* data */}
+        <div className="pop-up-content">
+          <div className=" ">
+            {/* share url */}
+            <div>
+              <p className="text-center mb-[10px]">
+                <span className="text-2xl">😀</span>Welcome
+              </p>
+            </div>
+            <h2 className="mb-[10px] text-center">
+              Copy And Help Spread The Word
+            </h2>
+            <div className="flex justify-center gap-[20px]  ">
+              <input
+                type="text"
+                ref={textRef}
+                value={`https://chilltons-client.web.app/`}
+                readOnly
+                className="bg-transparent outline-none text-zinc-600"
+              />
+              <button onClick={handleCopy}>
+                <MdOutlineContentCopy
+                  className="text-3xl text-red-600"
+                  title="Click To Copy"
+                />
+              </button>
+            </div>
+            {/*  */}
+            <div className="mt-[1.6em] w-full flex justify-center">
+              <button onClick={onClose} className="" id="roundedBg">
+                close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -123,6 +209,12 @@ const Feedback = () => {
             </div>
           </div>
         </div>
+        {/* pop up screen */}
+        {isPopUpOpen && (
+          <div className="pop-up-overlay">
+            <PopUpPage onClose={() => setIsPopUpOpen(false)} />
+          </div>
+        )}
       </div>
     </div>
   );

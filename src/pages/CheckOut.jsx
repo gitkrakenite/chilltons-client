@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -47,6 +47,8 @@ const CheckOut = () => {
   const handleCreateOrder = async (e) => {
     e.preventDefault();
 
+    handlePostClick();
+
     // username from saved user, phone number below, product details from cart and progress default = sent
 
     let username = user?.username;
@@ -70,14 +72,14 @@ const CheckOut = () => {
         progress,
         product: cartProducts,
       };
-      // console.log(dataToSend);
 
       const response = await axios.post("/orders/create", dataToSend);
       if (response) {
         setLoading(false);
         toast.success("Order sent succesfully");
+        // Clear the existing cart items
+        localStorage.setItem("cart", JSON.stringify([]));
         let orderId = response.data._id;
-        // console.log(orderId);
         if (orderId) {
           navigate("/progress", { state: { data: { orderId } } });
         }
@@ -87,6 +89,43 @@ const CheckOut = () => {
       toast.error("Error creating order");
     }
   };
+
+  // working on modal
+
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+  // what happens when we click on a post
+  const handlePostClick = () => {
+    setIsPopUpOpen(true);
+  };
+
+  // const PopUpPage = ({ onClose }) => {
+  //   return (
+  //     <div className="pop-up-page prompt">
+  //       {/* close btn */}
+
+  //       {/* data */}
+  //       <div className="pop-up-content">
+  //         <div className="flex justify-center my-[20px] z-[999] ">
+  //           {/* <button onClick={onClose}>
+  //             <AiOutlineClose
+  //               className="text-5xl text-zinc-800 p-[10px] rounded-full "
+  //               style={{
+  //                 border: "2px solid #188c56",
+  //                 position: "sticky",
+  //                 top: "20px",
+  //               }}
+  //               title="close"
+  //             />
+  //           </button> */}
+  //         </div>
+  //         <div className=" ">
+  //           <h2>Hello {user?.username}.</h2>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   return (
     <div>
@@ -165,6 +204,12 @@ const CheckOut = () => {
         </form>
       </div>
       {/*  */}
+      {/* pop up screen */}
+      {/* {isPopUpOpen && (
+        <div className="pop-up-overlay">
+          <PopUpPage onClose={() => setIsPopUpOpen(false)} />
+        </div>
+      )} */}
     </div>
   );
 };

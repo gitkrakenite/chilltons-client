@@ -3,9 +3,10 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "../axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import Spinner from "../components/Spinner";
+import { logout } from "../features/auth/authSlice";
 
 const Orders = () => {
   const [myOrders, setMyOrders] = useState([]);
@@ -22,20 +23,42 @@ const Orders = () => {
     }
   }, [user, navigate]);
 
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
   const handleFetchOrders = async () => {
-    try {
-      setLoading(true);
-      let username = user.username;
-      let dataToSend = { username };
-      const response = await axios.post("/orders/mine", dataToSend);
-      if (response) {
-        setLoading(false);
-        setMyOrders(response.data);
-        // console.log(response.data);
-      }
-    } catch (error) {
+    // check whether username exist in DB
+    let username = user?.username;
+    const nameToCheck = { username };
+    const { data } = await axios.post("/users/check", nameToCheck);
+    if (data == "not exist") {
       setLoading(false);
-      toast.error("Error Fetching orders");
+      handleLogout();
+      toast.warning("Please sign in again");
+      return;
+    } else {
+      try {
+        try {
+          setLoading(true);
+          let username = user.username;
+          let dataToSend = { username };
+          const response = await axios.post("/orders/mine", dataToSend);
+          if (response) {
+            setLoading(false);
+            setMyOrders(response.data);
+            // console.log(response.data);
+          }
+        } catch (error) {
+          setLoading(false);
+          toast.error("Error Fetching orders");
+        }
+      } catch (error) {
+        toast.error("Error Fetching orders");
+      }
     }
   };
 

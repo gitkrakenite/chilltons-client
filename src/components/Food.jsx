@@ -4,6 +4,7 @@ import {
   AiOutlineComment,
   AiOutlineLike,
   AiOutlineSearch,
+  AiOutlineSetting,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { GiCook } from "react-icons/gi";
@@ -17,8 +18,11 @@ import logo from "../assets/chlogo.png";
 import { toast } from "react-toastify";
 import axios from "../axios";
 import Spinner from "./Spinner";
+import { useSelector } from "react-redux";
 
 const Food = () => {
+  const { user } = useSelector((state) => state.auth);
+
   const [allFood, setAllFood] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -191,6 +195,13 @@ const Food = () => {
                 <BiPhoneCall className="text-2xl" />
               </a>
             </div>
+            {user?.isAdmin == "yes" && (
+              <div>
+                <Link to="https://admin-chilltons.web.app/" target="_blank">
+                  <AiOutlineSetting className="text-2xl" />
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

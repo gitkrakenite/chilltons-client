@@ -65,9 +65,11 @@ const Progress = () => {
             </div>
           </div>
           <div>
-            <p className="text-center mt-[1em]">We Have Seen Your Order</p>
+            <p className="text-center mt-[1em] font-bold">
+              We Have Seen Your Order
+            </p>
 
-            <p className="text-center">Total : Items + delivery + container</p>
+            {/* <p className="text-center">Total : Items + delivery + container</p> */}
 
             {/* {console.log(currentOrder)} */}
 
@@ -87,8 +89,9 @@ const Progress = () => {
         </div>
 
         {/*  */}
-        <div>
-          <div className="flex justify-center gap-[20px] mt-[20px] ">
+        <div className="mt-[20px]">
+          <h2 className="text-center font-bold mb-2">Send Money</h2>
+          <div className="flex justify-center gap-[20px]  ">
             <input
               type="text"
               ref={textRef}

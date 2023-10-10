@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Food from "../components/Food";
 import { logout } from "../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { AiOutlineClose } from "react-icons/ai";
+import { MdOutlineContentCopy } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const { user } = useSelector((state) => state.auth);
@@ -14,6 +17,7 @@ const Home = () => {
     dispatch(logout());
     navigate("/login");
   };
+
   return (
     <div>
       {/* wrapper */}
@@ -29,6 +33,7 @@ const Home = () => {
 
         <div className=" px-[10px] sm:px-[1em] md:px-[2em] lg:px-[4em] xl:px-[5em] pt-[5em]">
           {/* food */}
+          {/* {console.log(user)} */}
           {user ? (
             <div className="flex justify-end gap-4">
               <Link to="/charges">
