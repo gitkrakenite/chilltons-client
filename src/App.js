@@ -16,6 +16,7 @@ import Feedback from "./pages/Feedback";
 import Orders from "./pages/Orders";
 import SendUs from "./pages/SendUs";
 import Charges from "./pages/Charges";
+import Receipts from "./pages/Receipts";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/product/:id" element={<SpecificProduct />} />
           <Route path="/drink/:id" element={<SpecificDrink />} />
+          <Route path="/receipts" element={<Receipts />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

@@ -70,10 +70,17 @@ const Orders = () => {
       {/* wrapper */}
       <div className=" pt-[1em] px-[10px] sm:px-[2em] md:px-[3em] lg:px-[5em]">
         {/* topbar */}
-        <div>
-          <Link to="/home">
-            <AiOutlineArrowLeft className="text-2xl" />
-          </Link>
+        <div className="flex justify-between items-center">
+          <div>
+            <Link to="/home">
+              <AiOutlineArrowLeft className="text-2xl" />
+            </Link>
+          </div>
+          <div>
+            <Link to="/receipts">
+              <p className="font-bold">RECEIPTS</p>
+            </Link>
+          </div>
         </div>
 
         {loading ? (
