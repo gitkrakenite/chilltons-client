@@ -18,6 +18,63 @@ const Home = () => {
     navigate("/login");
   };
 
+  // working on modal
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+
+  // what happens when we click on a post
+  const handlePostClick = () => {
+    setIsPopUpOpen(true);
+  };
+
+  useEffect(() => {
+    // handlePostClick();
+  }, []);
+
+  const textRef = useRef(null);
+
+  const handleCopy = () => {
+    if (textRef.current) {
+      textRef.current.select();
+      document.execCommand("copy");
+      // You can also display a success message or perform any other action after copying.
+      toast.success("Copied To Clipboard");
+    }
+  };
+
+  const PopUpPage = ({ onClose }) => {
+    return (
+      <div className="pop-up-page prompt">
+        {/* data */}
+        <div className="pop-up-content">
+          <div className=" ">
+            {/* share url */}
+            <div>
+              <p className="text-center mb-[10px]">
+                <span className="text-2xl">😀</span>Welcome
+              </p>
+            </div>
+            <h2 className="mb-[10px] text-center font-bold text-red-600">
+              IMPORTANT ALERT
+            </h2>
+            <div className=" text-center">
+              <p className="mb-[14px]">
+                We shall start delivering from Monday 16th{" "}
+              </p>
+
+              <p>Thank you for your patience.</p>
+            </div>
+            {/*  */}
+            <div className="mt-[1.6em] w-full flex justify-center">
+              <button onClick={onClose} className="" id="roundedBg">
+                close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div>
       {/* wrapper */}
@@ -43,7 +100,7 @@ const Home = () => {
               </Link>
               <Link to="/feedback">
                 <p className="text-end font-bold mb-[13px] cursor-pointer">
-                  FEEDBACK
+                  VIEWS
                 </p>
               </Link>
               <Link to="/orders">
@@ -72,6 +129,12 @@ const Home = () => {
           </div>
         </div>
       </div>
+      {/* pop up screen */}
+      {isPopUpOpen && (
+        <div className="pop-up-overlay">
+          <PopUpPage onClose={() => setIsPopUpOpen(false)} />
+        </div>
+      )}
     </div>
   );
 };

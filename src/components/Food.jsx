@@ -161,6 +161,27 @@ const Food = () => {
     countItemsInCart(); // Call the function when the component mounts
   }, []);
 
+  // handle fetch onOffer
+  const [onOffer, setOnOffer] = useState([]);
+
+  const handleFetchOffers = async () => {
+    try {
+      let dataToSend = { onOffer: "yes" };
+      const response = await axios.post("/food/offer", dataToSend);
+      if (response) {
+        setOnOffer(response.data);
+        // console.log(response.data);
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("Error Fetching Offers");
+    }
+  };
+
+  useEffect(() => {
+    handleFetchOffers();
+  }, []);
+
   return (
     <div>
       {/* arrow to scroll to top */}
@@ -203,6 +224,73 @@ const Food = () => {
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* Offers */}
+      {onOffer.length > 0 && !searchText && (
+        <div className="mt-[1em]">
+          <div className="mb-[15px] flex items-center gap-2">
+            <p className="">SCROLL ON OFFER</p>
+            <p>
+              <AiOutlineArrowRight />
+            </p>
+          </div>
+          {/* DATA */}
+          <div>
+            <div className="flex gap-[10px] overflow-x-scroll w-full prompt pb-2">
+              <div className="flex flex-nowrap">
+                {onOffer?.map((item) => (
+                  <div key={item._id} className="flex-shrink-0 mr-[15px]">
+                    <div className="relative rounded-lg group ">
+                      <div className="overlay absolute inset-0 flex items-center justify-center opacity-100 group-hover:opacity-100">
+                        <div
+                          className="bg-gradient-to-t
+                                  from-transparent to-black opacity-75 w-full h-full rounded-md"
+                        >
+                          {/* top stats */}
+                          <div>
+                            <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
+                              <div>
+                                <p className="text-white">{item.vendor}</p>
+                              </div>
+                              <div className="flex gap-[20px]">
+                                <p className="text-white text-md flex items-center gap-[5px]">
+                                  <AiOutlineLike className="text-lg" />
+                                  <span>{item.likes.length}</span>
+                                </p>
+                                <p className="text-white text-md flex items-center gap-[5px]">
+                                  <span>Ksh. {item.price}</span>
+                                </p>
+                              </div>
+                            </div>
+                            <div className="absolute top-[80px] left-3">
+                              <p className="text-white">{item.title}</p>
+                            </div>
+                          </div>
+                          {/*  */}
+                          <div className="absolute bottom-[20px] left-[20px]  flex gap-[10%] w-full ">
+                            <div>
+                              <div className="flex gap-[10px] text-zinc-300">
+                                {/* <p>{item.location}</p> */}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <img
+                        src={item.image}
+                        alt=""
+                        className="w-72 h-80 rounded-md object-cover"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/*  */}
         </div>
       )}
 
@@ -256,6 +344,7 @@ const Food = () => {
                         );
                         if (response) {
                           setLoading(false);
+                          setOnOffer([]);
                           setAllFood(response.data);
                           // console.log(response.data);
                         }
@@ -281,6 +370,7 @@ const Food = () => {
                         );
                         if (response) {
                           setLoading(false);
+                          setOnOffer([]);
                           setAllFood(response.data);
                           // console.log(response.data);
                         }
@@ -306,6 +396,7 @@ const Food = () => {
                         );
                         if (response) {
                           setLoading(false);
+                          setOnOffer([]);
                           setAllFood(response.data);
                           // console.log(response.data);
                         }
@@ -331,6 +422,7 @@ const Food = () => {
                         );
                         if (response) {
                           setLoading(false);
+                          setOnOffer([]);
                           setAllFood(response.data);
                           // console.log(response.data);
                         }
@@ -356,6 +448,7 @@ const Food = () => {
                         );
                         if (response) {
                           setLoading(false);
+                          setOnOffer([]);
                           setAllFood(response.data);
                           // console.log(response.data);
                         }
@@ -381,6 +474,7 @@ const Food = () => {
                         );
                         if (response) {
                           setLoading(false);
+                          setOnOffer([]);
                           setAllFood(response.data);
                           // console.log(response.data);
                         }
@@ -406,6 +500,7 @@ const Food = () => {
                         );
                         if (response) {
                           setLoading(false);
+                          setOnOffer([]);
                           setAllFood(response.data);
                           // console.log(response.data);
                         }
@@ -431,6 +526,7 @@ const Food = () => {
                         );
                         if (response) {
                           setLoading(false);
+                          setOnOffer([]);
                           setAllFood(response.data);
                           // console.log(response.data);
                         }
@@ -448,6 +544,7 @@ const Food = () => {
                     onClick={async () => {
                       setLoading(true);
                       let vendor = "shawarma_hub";
+                      setOnOffer([]);
                       let dataToSend = { vendor };
                       try {
                         const response = await axios.post(
