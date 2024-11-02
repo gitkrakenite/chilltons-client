@@ -82,8 +82,9 @@ const Register = () => {
         <div className="flex justify-between items-center">
           {/* logo */}
           <div>
-            {/* <h2>CHILLTONS</h2> */}
-            <img src={logo} alt="" className="w-20 h-20" />
+            <Link to="/">
+              <img src={logo} alt="" className="w-20 h-20" />
+            </Link>
           </div>
         </div>
       </div>

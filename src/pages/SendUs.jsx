@@ -53,7 +53,6 @@ const SendUs = () => {
   return (
     <div>
       {/* wrapper */}
-      {/* wrapper */}
       <div className=" px-[10px] sm:px-[2em] md:px-[3em] pt-[1em]">
         {/* topbar */}
         <div>
@@ -74,8 +73,7 @@ const SendUs = () => {
             <div className="flex flex-col gap-[10px] mb-[20px]">
               <label htmlFor="message">
                 <p className="font-bold mb-2">
-                  Tell Us Exactly what you want and from who. We will get it for
-                  you and deliver at a fee
+                  Simply Enter All The Grocery Items You Need and how much
                 </p>
               </label>
 
@@ -130,10 +128,7 @@ const SendUs = () => {
           {/* pricing */}
           <div className="mt-[1em]">
             <h2 className="my-[15px] font-bold">Pricing</h2>
-            <p>
-              We will call you when we receive your order to discuss transport
-              fee
-            </p>
+            <p>Total Shopping + Ksh. 50 delivery fee</p>
           </div>
         </div>
       </div>

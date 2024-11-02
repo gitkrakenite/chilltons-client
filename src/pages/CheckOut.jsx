@@ -47,8 +47,6 @@ const CheckOut = () => {
   const handleCreateOrder = async (e) => {
     e.preventDefault();
 
-    handlePostClick();
-
     // username from saved user, phone number below, product details from cart and progress default = sent
 
     let username = user?.username;
@@ -99,33 +97,45 @@ const CheckOut = () => {
     setIsPopUpOpen(true);
   };
 
-  // const PopUpPage = ({ onClose }) => {
-  //   return (
-  //     <div className="pop-up-page prompt">
-  //       {/* close btn */}
+  useEffect(() => {
+    // handlePostClick();
+  }, []);
 
-  //       {/* data */}
-  //       <div className="pop-up-content">
-  //         <div className="flex justify-center my-[20px] z-[999] ">
-  //           {/* <button onClick={onClose}>
-  //             <AiOutlineClose
-  //               className="text-5xl text-zinc-800 p-[10px] rounded-full "
-  //               style={{
-  //                 border: "2px solid #188c56",
-  //                 position: "sticky",
-  //                 top: "20px",
-  //               }}
-  //               title="close"
-  //             />
-  //           </button> */}
-  //         </div>
-  //         <div className=" ">
-  //           <h2>Hello {user?.username}.</h2>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // };
+  const PopUpPage = ({ onClose }) => {
+    return (
+      <div className="pop-up-page prompt">
+        {/* data */}
+        <div className="pop-up-content">
+          <div className=" ">
+            {/* share url */}
+            <div>
+              <p className="text-center mb-[10px]">
+                <span className="text-2xl">😀</span>Welcome
+              </p>
+            </div>
+            <h2 className="mb-[10px] text-center font-bold text-red-600">
+              IMPORTANT ALERT
+            </h2>
+            <div className=" text-center">
+              <p className="mb-[14px]">😢Due to Unavoidable circumstances</p>
+
+              <p className="mb-[14px]">
+                We Have Stopped Delivering Till Further Notice{" "}
+              </p>
+
+              <p>We hope we will get back to serving you soon</p>
+            </div>
+            {/*  */}
+            <div className="mt-[1.6em] w-full flex justify-center">
+              <button onClick={onClose} className="" id="roundedBg">
+                close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -205,11 +215,11 @@ const CheckOut = () => {
       </div>
       {/*  */}
       {/* pop up screen */}
-      {/* {isPopUpOpen && (
+      {isPopUpOpen && (
         <div className="pop-up-overlay">
           <PopUpPage onClose={() => setIsPopUpOpen(false)} />
         </div>
-      )} */}
+      )}
     </div>
   );
 };

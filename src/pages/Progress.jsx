@@ -90,7 +90,7 @@ const Progress = () => {
 
         {/*  */}
         <div className="mt-[20px]">
-          <h2 className="text-center font-bold mb-2">Send Money</h2>
+          <h2 className="text-center font-bold mb-2">On Delivery Send Money</h2>
           <div className="flex justify-center gap-[20px]  ">
             <input
               type="text"

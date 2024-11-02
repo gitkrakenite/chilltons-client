@@ -22,8 +22,8 @@ html {
 /* Styling for the pop-up page */
 .pop-up-page {
   position: relative;
-  height: 17em;
-  width: 20em;
+  height: 22em;
+  width: 23em;
   margin: auto;
   overflow-y: scroll;
   background-color: rgb(238, 235, 235);

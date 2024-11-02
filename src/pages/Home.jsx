@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineContentCopy } from "react-icons/md";
 import { toast } from "react-toastify";
+import { BiPhoneCall } from "react-icons/bi";
 
 const Home = () => {
   const { user } = useSelector((state) => state.auth);
@@ -57,11 +58,13 @@ const Home = () => {
               IMPORTANT ALERT
             </h2>
             <div className=" text-center">
+              <p className="mb-[14px]">😢Due to Unavoidable circumstances</p>
+
               <p className="mb-[14px]">
-                We shall start delivering from Monday 16th{" "}
+                We Have Stopped Delivering Till Further Notice{" "}
               </p>
 
-              <p>Thank you for your patience.</p>
+              <p>We hope we will get back to serving you soon</p>
             </div>
             {/*  */}
             <div className="mt-[1.6em] w-full flex justify-center">
@@ -93,11 +96,11 @@ const Home = () => {
           {/* {console.log(user)} */}
           {user ? (
             <div className="flex justify-end gap-4">
-              <Link to="/charges">
+              {/* <Link to="/charges">
                 <p className="text-end font-bold mb-[13px] cursor-pointer">
                   FEE
                 </p>
-              </Link>
+              </Link> */}
               <Link to="/feedback">
                 <p className="text-end font-bold mb-[13px] cursor-pointer">
                   VIEWS
@@ -114,6 +117,11 @@ const Home = () => {
               >
                 LOGOUT
               </p>
+              <div className="flex gap-[10px] sm:gap-[2em] ">
+                <a href="tel:0798556471" title="call us">
+                  <BiPhoneCall className="text-2xl" />
+                </a>
+              </div>
             </div>
           ) : (
             <p

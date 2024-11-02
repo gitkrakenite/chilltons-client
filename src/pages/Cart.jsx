@@ -6,6 +6,7 @@ import logo from "../assets/chlogo.png";
 
 const Cart = () => {
   const [quantity, setQuantity] = useState(1);
+
   // scroll to top functionality
   const [showArrow, setShowArrow] = useState(false);
 

@@ -173,8 +173,9 @@ const Food = () => {
         // console.log(response.data);
       }
     } catch (error) {
-      setLoading(false);
-      toast.error("Error Fetching Offers");
+      // setLoading(false);
+      console.log("Error");
+      // toast.error("Error Fetching Offers");
     }
   };
 
@@ -199,9 +200,14 @@ const Food = () => {
       {!searchText && (
         <div className="flex justify-between items-center px-1 sm:px-2">
           <div>
-            <img src={logo} alt="" className="w-16 h-16" />
+            <Link to="/">
+              <img src={logo} alt="" className="w-16 h-16" />
+            </Link>
           </div>
           <div className="flex gap-[20px] items-center">
+            <Link to="/sendus">
+              <p>GROCERY</p>
+            </Link>
             <Link to="/drinks">
               <p>DRINKS</p>
             </Link>
@@ -211,14 +217,11 @@ const Food = () => {
               </p>
               <p className="mt-[-10px] ">{cartItemCount}</p>
             </Link>
-            <div className="flex gap-[10px] sm:gap-[2em] ">
-              <a href="tel:0798556471" title="call us">
-                <BiPhoneCall className="text-2xl" />
-              </a>
-            </div>
+
             {user?.isAdmin == "yes" && (
               <div>
-                <Link to="https://admin-chilltons.web.app/" target="_blank">
+                {/* to="https://admin-chilltons.web.app/" */}
+                <Link to="http://localhost:5173/" target="_blank">
                   <AiOutlineSetting className="text-2xl" />
                 </Link>
               </div>
@@ -242,49 +245,51 @@ const Food = () => {
               <div className="flex flex-nowrap">
                 {onOffer?.map((item) => (
                   <div key={item._id} className="flex-shrink-0 mr-[15px]">
-                    <div className="relative rounded-lg group ">
-                      <div className="overlay absolute inset-0 flex items-center justify-center opacity-100 group-hover:opacity-100">
-                        <div
-                          className="bg-gradient-to-t
+                    <Link to={`/product/${item._id}`}>
+                      <div className="relative rounded-lg group ">
+                        <div className="overlay absolute inset-0 flex items-center justify-center opacity-100 group-hover:opacity-100">
+                          <div
+                            className="bg-gradient-to-t
                                   from-transparent to-black opacity-75 w-full h-full rounded-md"
-                        >
-                          {/* top stats */}
-                          <div>
-                            <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
-                              <div>
-                                <p className="text-white">{item.vendor}</p>
-                              </div>
-                              <div className="flex gap-[20px]">
-                                <p className="text-white text-md flex items-center gap-[5px]">
-                                  <AiOutlineLike className="text-lg" />
-                                  <span>{item.likes.length}</span>
-                                </p>
-                                <p className="text-white text-md flex items-center gap-[5px]">
-                                  <span>Ksh. {item.price}</span>
-                                </p>
-                              </div>
-                            </div>
-                            <div className="absolute top-[80px] left-3">
-                              <p className="text-white">{item.title}</p>
-                            </div>
-                          </div>
-                          {/*  */}
-                          <div className="absolute bottom-[20px] left-[20px]  flex gap-[10%] w-full ">
+                          >
+                            {/* top stats */}
                             <div>
-                              <div className="flex gap-[10px] text-zinc-300">
-                                {/* <p>{item.location}</p> */}
+                              <div className="absolute top-[20px] flex gap-[10%]  w-full justify-between px-2 ">
+                                <div>
+                                  <p className="text-white">{item.vendor}</p>
+                                </div>
+                                <div className="flex gap-[20px]">
+                                  <p className="text-white text-md flex items-center gap-[5px]">
+                                    <AiOutlineLike className="text-lg" />
+                                    <span>{item.likes.length}</span>
+                                  </p>
+                                  <p className="text-white text-md flex items-center gap-[5px]">
+                                    <span>Ksh. {item.price}</span>
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="absolute top-[80px] left-3">
+                                <p className="text-white">{item.title}</p>
+                              </div>
+                            </div>
+                            {/*  */}
+                            <div className="absolute bottom-[20px] left-[20px]  flex gap-[10%] w-full ">
+                              <div>
+                                <div className="flex gap-[10px] text-zinc-300">
+                                  {/* <p>{item.location}</p> */}
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      <img
-                        src={item.image}
-                        alt=""
-                        className="w-72 h-80 rounded-md object-cover"
-                      />
-                    </div>
+                        <img
+                          src={item.image}
+                          alt=""
+                          className="w-72 h-80 rounded-md object-cover"
+                        />
+                      </div>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -315,14 +320,14 @@ const Food = () => {
         {/* categories */}
         {!searchText && (
           <div className="mt-4">
-            <div className="mb-[15px] flex items-center gap-2">
+            {/* <div className="mb-[15px] flex items-center gap-2">
               <p className="">SCROLL TO FILTER</p>
               <p>
                 <AiOutlineArrowRight />
               </p>
-            </div>
+            </div> */}
             <div className=" overflow-x-scroll prompt">
-              <div className="flex justify-start md:justify-center">
+              <div className="flex justify-center">
                 <ul className="flex  space-x-7  pb-1 ">
                   <li
                     className="cursor-pointer flex items-center gap-1"
@@ -331,7 +336,7 @@ const Food = () => {
                     <GiCook />
                     all
                   </li>
-                  <li
+                  {/* <li
                     className="cursor-pointer flex items-center gap-1"
                     onClick={async () => {
                       setLoading(true);
@@ -356,8 +361,8 @@ const Food = () => {
                   >
                     <GiCook />
                     kioko
-                  </li>
-                  <li
+                  </li> */}
+                  {/* <li
                     className="cursor-pointer flex items-center gap-1"
                     onClick={async () => {
                       setLoading(true);
@@ -382,7 +387,7 @@ const Food = () => {
                   >
                     <GiCook />
                     food_palace
-                  </li>
+                  </li> */}
                   <li
                     className="cursor-pointer flex items-center gap-1"
                     onClick={async () => {
@@ -435,7 +440,7 @@ const Food = () => {
                     <GiCook />
                     cafeteria
                   </li>
-                  <li
+                  {/* <li
                     className="cursor-pointer flex items-center gap-1"
                     onClick={async () => {
                       setLoading(true);
@@ -564,7 +569,7 @@ const Food = () => {
                   >
                     <GiCook />
                     shawarma_hub
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>

@@ -271,7 +271,16 @@ const SpecificProduct = () => {
                           <p className="text-2xl font-bold mb-2">
                             {item.title}
                           </p>
-                          <p className="text-teal-700">from {item.vendor}</p>
+                          <div className="flex justify-between items-center">
+                            <p className="text-teal-700">from {item.vendor}</p>
+                            <div>
+                              {item.onOffer == "yes" && (
+                                <p className="text-red-700 font-bold">
+                                  😉on offer
+                                </p>
+                              )}
+                            </div>
+                          </div>
                         </div>
                         <p className="mb-[2em]">{item.description}</p>
                         <p className="mb-[2em]">
